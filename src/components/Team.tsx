@@ -7,12 +7,12 @@ export default function Team() {
   return (
     <section id="team" className="py-32 px-4 relative bg-white">
       {/* Subtle Divider */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-brand-100" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-24">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in-up tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in-up tracking-tight text-zinc-900">
             Meet Our Leadership
           </h2>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto animate-fade-in-up delay-100 font-light">
@@ -32,18 +32,18 @@ export default function Team() {
               <div className="relative p-8 text-center rounded bg-zinc-50 border border-zinc-200 group-hover:border-zinc-400 transition-all duration-300">
                 {/* Avatar */}
                 <div className="mb-6 relative inline-block">
-                  <div className="relative w-24 h-24 rounded-full bg-zinc-900 flex items-center justify-center text-4xl border border-zinc-300 group-hover:border-zinc-500 transition-all duration-300 group-hover:scale-105">
+                  <div className="relative w-24 h-24 rounded-[2rem] bg-brand-950 flex items-center justify-center text-4xl border border-brand-100 shadow-sm transition-all duration-300 group-hover:scale-105">
                     {member.image}
                   </div>
                 </div>
 
                 {/* Name */}
-                <h3 className="text-xl font-bold mb-1 text-zinc-800 group-hover:text-zinc-900 transition-colors">
+                <h3 className="text-xl font-bold mb-1 text-zinc-900 group-hover:text-brand-950 transition-colors tracking-tight">
                   {member.name}
                 </h3>
 
                 {/* Role */}
-                <p className="text-blue-500 font-medium mb-4 text-sm tracking-wide">
+                <p className="text-brand-600 font-medium mb-4 text-sm tracking-wide">
                   {member.role}
                 </p>
 
@@ -56,19 +56,19 @@ export default function Team() {
                 <div className="flex justify-center gap-4 pt-6 border-t border-zinc-200">
                   <a
                     href="#"
-                    className="p-2 rounded bg-zinc-900 hover:bg-zinc-300 text-zinc-400 hover:text-zinc-900 transition-colors"
+                    className="p-2 rounded bg-brand-950 hover:bg-brand-900 text-zinc-400 hover:text-white transition-colors"
                   >
                     <Linkedin className="w-4 h-4" />
                   </a>
                   <a
                     href="#"
-                    className="p-2 rounded bg-zinc-900 hover:bg-zinc-300 text-zinc-400 hover:text-zinc-900 transition-colors"
+                    className="p-2 rounded bg-brand-950 hover:bg-brand-900 text-zinc-400 hover:text-white transition-colors"
                   >
                     <Github className="w-4 h-4" />
                   </a>
                   <a
                     href="#"
-                    className="p-2 rounded bg-zinc-900 hover:bg-zinc-300 text-zinc-400 hover:text-zinc-900 transition-colors"
+                    className="p-2 rounded bg-brand-950 hover:bg-brand-900 text-zinc-400 hover:text-white transition-colors"
                   >
                     <Mail className="w-4 h-4" />
                   </a>

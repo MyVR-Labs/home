@@ -16,7 +16,7 @@ export default function Footer() {
               <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-zinc-200 shadow-sm bg-white">
                 <Image src="/icon.png" alt="MyVR-Labs Logo" fill className="object-contain p-1" />
               </div>
-              <h3 className="text-xl font-bold text-zinc-800">
+              <h3 className="text-xl font-bold text-zinc-900 tracking-tight">
                 MyVR-Labs
               </h3>
             </div>
@@ -27,15 +27,15 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold text-zinc-800 mb-6 text-base tracking-wide uppercase text-sm">Services</h4>
+            <h4 className="font-semibold text-zinc-900 mb-6 text-base tracking-wide uppercase text-sm">Services</h4>
             <ul className="space-y-3">
               {["Mobile Apps", "Web Development", "Business Automation", "Ongoing Support"].map((service) => (
                 <li key={service}>
                   <a
                     href="#services"
-                    className="text-zinc-400 hover:text-blue-400 transition-colors text-sm font-light flex items-center gap-2 group"
+                    className="text-zinc-400 hover:text-brand-500 transition-colors text-sm font-medium flex items-center gap-2 group"
                   >
-                    <span className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity">
                       <ArrowRight className="w-3 h-3" />
                     </span>
                     {service}
@@ -47,15 +47,15 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-zinc-800 mb-6 text-base tracking-wide uppercase text-sm">Quick Links</h4>
+            <h4 className="font-semibold text-zinc-900 mb-6 text-base tracking-wide uppercase text-sm">Quick Links</h4>
             <ul className="space-y-3">
               {["Home", "Projects", "Team", "Contact"].map((link) => (
                 <li key={link}>
                   <a
                     href={`#${link.toLowerCase()}`}
-                    className="text-zinc-400 hover:text-blue-400 transition-colors text-sm font-light flex items-center gap-2 group"
+                    className="text-zinc-400 hover:text-brand-500 transition-colors text-sm font-medium flex items-center gap-2 group"
                   >
-                    <span className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity">
                       <ArrowRight className="w-3 h-3" />
                     </span>
                     {link}
@@ -67,15 +67,15 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-zinc-800 mb-6 text-base tracking-wide uppercase text-sm">Get In Touch</h4>
+            <h4 className="font-semibold text-zinc-900 mb-6 text-base tracking-wide uppercase text-sm">Get In Touch</h4>
             <ul className="space-y-3 text-zinc-400 text-sm font-light">
-              <li className="hover:text-blue-400 transition-colors">
+              <li className="hover:text-brand-500 transition-colors font-medium">
                 Email: hello@myvr-labs.com
               </li>
-              <li className="hover:text-blue-400 transition-colors">
+              <li className="hover:text-brand-500 transition-colors font-medium">
                 Phone: +91 (Your Number)
               </li>
-              <li className="hover:text-blue-400 transition-colors">
+              <li className="hover:text-brand-500 transition-colors font-medium">
                 Location: India
               </li>
             </ul>
@@ -115,7 +115,7 @@ export default function Footer() {
         <div className="mt-8 flex justify-center">
           <a
             href="#home"
-            className="p-3 rounded-full bg-zinc-50 border border-zinc-200 hover:border-zinc-300 text-zinc-400 hover:text-zinc-900 transition-all hover:-translate-y-1"
+            className="p-3 rounded-full bg-zinc-50 border border-zinc-200 hover:border-brand-200 text-zinc-400 hover:text-brand-900 transition-all hover:-translate-y-1 shadow-sm"
           >
             <ArrowRight className="w-4 h-4 -rotate-90" />
           </a>

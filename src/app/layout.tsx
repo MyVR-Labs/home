@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="bg-white text-zinc-900 antialiased selection:bg-blue-500/30">
+      <body className="bg-white text-zinc-900 antialiased selection:bg-brand-500/30">
         {children}
       </body>
     </html>

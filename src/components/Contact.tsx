@@ -36,13 +36,12 @@ export default function Contact() {
   return (
     <section id="contact" className="py-32 px-4 relative bg-white">
       {/* Subtle Background Elements */}
-      <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-brand-100" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in-up tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in-up tracking-tight text-zinc-900">
             Let's Connect
           </h2>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto animate-fade-in-up delay-100 font-light">
@@ -54,16 +53,16 @@ export default function Contact() {
           {/* Contact Information */}
           <div className="space-y-8 animate-fade-in-left">
             <div>
-              <h3 className="text-3xl font-bold mb-8 text-zinc-900">Contact Information</h3>
+              <h3 className="text-3xl font-bold mb-8 text-zinc-900 tracking-tight">Contact Information</h3>
             </div>
 
             {/* Address */}
-            <div className="group flex gap-6 p-6 rounded bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-all">
-              <div className="p-4 rounded bg-zinc-900 h-fit text-zinc-400 group-hover:text-blue-500 transition-colors">
+            <div className="group flex gap-6 p-6 rounded bg-zinc-50 border border-zinc-200 hover:border-brand-200 transition-all shadow-sm">
+              <div className="p-4 rounded-xl bg-brand-600 h-fit text-brand-100 group-hover:bg-brand-700 transition-colors">
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-semibold text-lg mb-2 text-zinc-800">
+                <h4 className="font-semibold text-lg mb-2 text-zinc-900">
                   Office Location
                 </h4>
                 <p className="text-zinc-400 font-light text-sm">India</p>
@@ -71,12 +70,12 @@ export default function Contact() {
             </div>
 
             {/* Phone */}
-            <div className="group flex gap-6 p-6 rounded bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-all">
-              <div className="p-4 rounded bg-zinc-900 h-fit text-zinc-400 group-hover:text-blue-500 transition-colors">
+            <div className="group flex gap-6 p-6 rounded bg-zinc-50 border border-zinc-200 hover:border-brand-200 transition-all shadow-sm">
+              <div className="p-4 rounded-xl bg-brand-600 h-fit text-brand-100 group-hover:bg-brand-700 transition-colors">
                 <Phone className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-semibold text-lg mb-2 text-zinc-800">
+                <h4 className="font-semibold text-lg mb-2 text-zinc-900">
                   Phone
                 </h4>
                 <p className="text-zinc-400 font-light text-sm">+91 (Your Number)</p>
@@ -84,12 +83,12 @@ export default function Contact() {
             </div>
 
             {/* Email */}
-            <div className="group flex gap-6 p-6 rounded bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-all">
-              <div className="p-4 rounded bg-zinc-900 h-fit text-zinc-400 group-hover:text-blue-500 transition-colors">
+            <div className="group flex gap-6 p-6 rounded bg-zinc-50 border border-zinc-200 hover:border-brand-200 transition-all shadow-sm">
+              <div className="p-4 rounded-xl bg-brand-600 h-fit text-brand-100 group-hover:bg-brand-700 transition-colors">
                 <Mail className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="font-semibold text-lg mb-2 text-zinc-800">
+                <h4 className="font-semibold text-lg mb-2 text-zinc-900">
                   Email
                 </h4>
                 <p className="text-zinc-400 font-light text-sm">hello@myvr-labs.com</p>
@@ -127,7 +126,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
               <div className="group">
-                <label className="block text-sm font-semibold mb-2 text-zinc-600">
+                <label className="block text-sm font-semibold mb-2 text-zinc-600 tracking-tight">
                   Full Name *
                 </label>
                 <input
@@ -136,14 +135,14 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded bg-zinc-50 border border-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-zinc-800 placeholder-zinc-600 outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-zinc-900 placeholder-zinc-400 outline-none"
                   placeholder="Your name"
                 />
               </div>
 
               {/* Email */}
               <div className="group">
-                <label className="block text-sm font-semibold mb-2 text-zinc-600">
+                <label className="block text-sm font-semibold mb-2 text-zinc-600 tracking-tight">
                   Email Address *
                 </label>
                 <input
@@ -152,14 +151,14 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded bg-zinc-50 border border-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-zinc-800 placeholder-zinc-600 outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-zinc-900 placeholder-zinc-400 outline-none"
                   placeholder="your@email.com"
                 />
               </div>
 
               {/* Phone */}
               <div className="group">
-                <label className="block text-sm font-semibold mb-2 text-zinc-600">
+                <label className="block text-sm font-semibold mb-2 text-zinc-600 tracking-tight">
                   Phone Number
                 </label>
                 <input
@@ -167,14 +166,14 @@ export default function Contact() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded bg-zinc-50 border border-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-zinc-800 placeholder-zinc-600 outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-zinc-900 placeholder-zinc-400 outline-none"
                   placeholder="+91 (Your number)"
                 />
               </div>
 
               {/* Company */}
               <div className="group">
-                <label className="block text-sm font-semibold mb-2 text-zinc-600">
+                <label className="block text-sm font-semibold mb-2 text-zinc-600 tracking-tight">
                   Company
                 </label>
                 <input
@@ -182,14 +181,14 @@ export default function Contact() {
                   name="company"
                   value={formData.company}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded bg-zinc-50 border border-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-zinc-800 placeholder-zinc-600 outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-zinc-900 placeholder-zinc-400 outline-none"
                   placeholder="Your company"
                 />
               </div>
 
               {/* Message */}
               <div className="group">
-                <label className="block text-sm font-semibold mb-2 text-zinc-600">
+                <label className="block text-sm font-semibold mb-2 text-zinc-600 tracking-tight">
                   Message *
                 </label>
                 <textarea
@@ -198,7 +197,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded bg-zinc-50 border border-zinc-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-zinc-800 placeholder-zinc-600 outline-none resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all text-zinc-900 placeholder-zinc-400 outline-none resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
@@ -206,7 +205,7 @@ export default function Contact() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full px-8 py-3.5 rounded bg-zinc-900 hover:bg-zinc-800 text-white font-semibold transition-all flex items-center justify-center gap-2 mt-6 shadow-sm"
+                className="w-full px-8 py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-medium transition-all flex items-center justify-center gap-2 mt-6 shadow-md hover:shadow-lg tracking-tight"
               >
                 <span>{submitted ? "Message Sent! ✓" : "Send Message"}</span>
                 <Send className="w-4 h-4" />

@@ -7,12 +7,12 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-32 px-4 relative bg-white">
       {/* Subtle Divider */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-brand-100" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-24">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in-up tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 animate-fade-in-up tracking-tight text-zinc-900">
             Client Testimonials
           </h2>
           <p className="text-lg text-zinc-400 max-w-2xl mx-auto animate-fade-in-up delay-100 font-light">
@@ -31,7 +31,7 @@ export default function Testimonials() {
               {/* Card */}
               <div className="relative p-8 rounded bg-zinc-50 border border-zinc-200 group-hover:border-zinc-400 transition-all duration-300 flex flex-col h-full">
                 {/* Quote Icon */}
-                <div className="absolute top-6 right-6 text-zinc-800 group-hover:text-zinc-700 transition-colors">
+                <div className="absolute top-6 right-6 text-brand-200 group-hover:text-brand-300 transition-colors">
                   <Quote className="w-8 h-8" />
                 </div>
 
@@ -55,7 +55,7 @@ export default function Testimonials() {
 
                 {/* Author */}
                 <div className="pt-6 border-t border-zinc-200 flex flex-col">
-                  <div className="font-semibold text-zinc-800 mb-1">
+                  <div className="font-semibold text-zinc-900 mb-1 tracking-tight">
                     {testimonial.name}
                   </div>
                   <div className="text-sm text-zinc-400 font-light">

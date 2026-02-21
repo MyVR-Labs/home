@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+@theme {
+    --color-brand-50: #F4F4F4;
+    --color-brand-100: #e0f2f3;
+    --color-brand-200: #b3e0e1;
+    --color-brand-300: #80cacc;
+    --color-brand-400: #00B7B5;
+    --color-brand-500: #009ea3;
+    --color-brand-600: #018790;
+    --color-brand-700: #016e75;
+    --color-brand-800: #005a61;
+    --color-brand-900: #004a52;
+    --color-brand-950: #005461;
+}
+
+/* Custom utility classes previously omitted or missing */
+.grid-pattern {
+    background-image: linear-gradient(to right, #e4e4e7 1px, transparent 1px),
+        linear-gradient(to bottom, #e4e4e7 1px, transparent 1px);
+    background-size: 40px 40px;
+}
