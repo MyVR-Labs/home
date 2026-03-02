@@ -89,29 +89,5 @@ export const testimonials = [
     role: "Manager",
     message: "Automating billing and WhatsApp notifications reduced our administrative work by half.",
     rating: 5
-  },
-  {
-    id: 4,
-    name: "Divya N.",
-    company: "RetailPro Market",
-    role: "Operations Lead",
-    message: "A fantastic e-commerce app that brought our local store online with zero technical headaches for us.",
-    rating: 5
-  },
-  {
-    id: 5,
-    name: "Arjun M.",
-    company: "BuildCorp Realty",
-    role: "Agent",
-    message: "Our property showcase website makes it incredibly easy for clients to browse homes on their phones.",
-    rating: 5
-  },
-  {
-    id: 6,
-    name: "Priya S.",
-    company: "Excel Coaching",
-    role: "Institute Director",
-    message: "The student portal app improved our communication significantly. The ongoing support is reliable.",
-    rating: 5
   }
 ];

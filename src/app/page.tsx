@@ -9,13 +9,14 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-zinc-900 overflow-x-hidden relative flex flex-col">
-      {/* Subtle Background Pattern */}
+    <div className="min-h-screen bg-brand-950 text-white overflow-x-hidden relative flex flex-col">
+      {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute inset-0 bg-white" />
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-        {/* Very subtle glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute inset-0 bg-brand-950" />
+        <div className="absolute inset-0 grid-pattern" />
+        {/* Animated gradient orbs */}
+        <div className="gradient-orb absolute top-0 left-1/4 w-[800px] h-[800px] pointer-events-none" />
+        <div className="gradient-orb-2 absolute bottom-1/4 right-1/4 w-[600px] h-[600px] pointer-events-none" />
       </div>
 
       {/* Content */}
