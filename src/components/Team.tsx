@@ -7,6 +7,7 @@ const avatarColors = [
   "bg-brand-100 text-brand-700",
   "bg-violet-100 text-violet-700",
   "bg-emerald-100 text-emerald-700",
+  "bg-amber-100 text-amber-700",
 ];
 
 export default function Team() {
@@ -26,7 +27,7 @@ export default function Team() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member, i) => (
             <div
               key={member.id}
@@ -46,7 +47,16 @@ export default function Team() {
 
               {/* Social */}
               <div className="flex justify-center gap-2 pt-5 border-t border-ink-100">
-                {[Linkedin, Github, Mail].map((Icon, j) => (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="card-sm w-8 h-8 flex items-center justify-center text-ink-400 hover:text-brand-600 rounded-lg cursor-pointer"
+                  aria-label={`${member.name} on LinkedIn`}
+                >
+                  <Linkedin className="w-3.5 h-3.5" />
+                </a>
+                {[Github, Mail].map((Icon, j) => (
                   <a
                     key={j}
                     href="#"

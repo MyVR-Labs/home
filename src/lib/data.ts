@@ -47,21 +47,32 @@ export const team = [
     name: "Rahul",
     role: "Full Stack Developer",
     expertise: "Mobile Apps, Web Development",
-    image: "👨‍💻"
+    image: "👨‍💻",
+    linkedin: "https://www.linkedin.com/in/rahul-thatipamula/"
   },
   {
     id: 2,
     name: "Abdul Farhath",
     role: "Full Stack Developer",
     expertise: "Frontend & Backend Systems",
-    image: "👨‍💻"
+    image: "👨‍💻",
+    linkedin: "https://www.linkedin.com/in/abdulfarhath/"
   },
   {
     id: 3,
     name: "Saketh",
     role: "Client Manager",
     expertise: "Client Relations, Project Management",
-    image: "👨‍💼"
+    image: "👨‍💼",
+    linkedin: "https://www.linkedin.com/in/suryavamshisaketh/"
+  },
+  {
+    id: 4,
+    name: "Sai Prasad Hegde",
+    role: "Client Manager",
+    expertise: "Client Relations, Project Management",
+    image: "👨‍💼",
+    linkedin: "https://www.linkedin.com/in/saiprasadhegde/"
   }
 ];
 
