@@ -1,199 +1,172 @@
 "use client";
 
-import { Mail, Phone, Linkedin, Twitter, Github, Send } from "lucide-react";
 import { useState } from "react";
+import { Mail, Phone, MapPin, ArrowRight, Send, Linkedin, Twitter, Github } from "lucide-react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    message: ""
-  });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
 
-  const [submitted, setSubmitted] = useState(false);
+  const handle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
-    }, 3000);
+    setStatus("loading");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "YOUR_ACCESS_KEY_HERE",
+          subject: `New inquiry from ${form.name} — CraftMVP`,
+          from_name: "CraftMVP Website",
+          ...form,
+        }),
+      });
+      setStatus(res.ok ? "sent" : "error");
+      if (res.ok) {
+        setForm({ name: "", email: "", phone: "", company: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch {
+      setStatus("error");
+    }
   };
+
+  const field = "w-full px-4 py-3 rounded-xl border border-ink-200 bg-white text-ink-900 text-sm font-medium placeholder:text-ink-300 focus:outline-none focus:border-brand-400 focus:ring-3 focus:ring-brand-100 transition-all";
 
   return (
-    <section id="contact" className="py-32 px-4 relative">
-      {/* Decorative */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-brand-400/20 to-transparent" />
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full bg-brand-400/[0.03] blur-[120px] pointer-events-none" />
+    <section id="contact" className="section-pad bg-white px-5 relative">
+      <div className="absolute top-0 left-8 right-8 h-px bg-ink-100" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tighter animate-fade-in-up">
-            <span className="text-white">Let&apos;s </span>
-            <span className="gradient-text">Connect.</span>
-          </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto animate-fade-in-up delay-100 font-light">
-            Ready to transform your business? Let&apos;s talk about your project and create something amazing together.
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-6 animate-fade-in-left">
-            <h3 className="text-3xl font-bold mb-8 text-white tracking-tight">Contact Information</h3>
+          {/* Left: info */}
+          <div data-reveal>
+            <p className="eyebrow mb-4">Contact</p>
+            <h2 className="heading-lg text-ink-950 mb-5">
+              Let&apos;s Build{" "}
+              <span className="gradient-text">Something.</span>
+            </h2>
+            <p className="text-ink-400 text-base leading-relaxed mb-10 max-w-sm">
+              Got an idea? We&apos;d love to hear about it. Drop us a message
+              and we&apos;ll get back to you within 24 hours.
+            </p>
 
-            {/* Phone */}
-            <div className="group flex gap-5 p-6 rounded-2xl glass-card gradient-border hover:bg-white/[0.06] transition-all">
-              <div className="p-4 rounded-xl bg-brand-400/15 h-fit text-brand-400 group-hover:bg-brand-400/25 transition-colors">
-                <Phone className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg mb-1 text-white">Phone</h4>
-                <p className="text-white/60 font-light text-sm">+91 9059790014</p>
-              </div>
+            {/* Contact links */}
+            <div className="space-y-4 mb-10">
+              {[
+                { Icon: Phone, label: "Phone", value: "+91 9059790014", href: "tel:+919059790014" },
+                { Icon: Mail, label: "Email", value: "craftmvp.in@gmail.com", href: "mailto:craftmvp.in@gmail.com" },
+                { Icon: MapPin, label: "Location", value: "India — Remote friendly", href: "#" },
+              ].map(({ Icon, label, value, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="flex items-center gap-4 group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-ink-50 border border-ink-200 flex items-center justify-center text-ink-400 group-hover:bg-brand-50 group-hover:border-brand-200 group-hover:text-brand-600 transition-all flex-shrink-0">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-ink-400 font-medium">{label}</p>
+                    <p className="text-sm font-semibold text-ink-900 group-hover:text-brand-600 transition-colors">
+                      {value}
+                    </p>
+                  </div>
+                </a>
+              ))}
             </div>
 
-            {/* Email */}
-            <div className="group flex gap-5 p-6 rounded-2xl glass-card gradient-border hover:bg-white/[0.06] transition-all">
-              <div className="p-4 rounded-xl bg-brand-400/15 h-fit text-brand-400 group-hover:bg-brand-400/25 transition-colors">
-                <Mail className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-lg mb-1 text-white">Email</h4>
-                <p className="text-white/60 font-light text-sm">hello@craftmvp.in</p>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="pt-6">
-              <h4 className="font-semibold text-lg mb-6 text-white">Follow Us</h4>
-              <div className="flex gap-3">
+            {/* Socials */}
+            <div className="flex gap-2">
+              {[
+                { Icon: Linkedin, label: "LinkedIn" },
+                { Icon: Twitter, label: "Twitter" },
+                { Icon: Github, label: "GitHub" },
+              ].map(({ Icon, label }) => (
                 <a
+                  key={label}
                   href="#"
-                  className="p-3 rounded-xl glass-card hover:bg-brand-400/15 transition-all text-white/40 hover:text-brand-400 hover:border-brand-400/20"
+                  aria-label={label}
+                  className="card-sm w-9 h-9 flex items-center justify-center text-ink-400 hover:text-brand-600"
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <Icon className="w-4 h-4" />
                 </a>
-                <a
-                  href="#"
-                  className="p-3 rounded-xl glass-card hover:bg-brand-400/15 transition-all text-white/40 hover:text-brand-400 hover:border-brand-400/20"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="p-3 rounded-xl glass-card hover:bg-brand-400/15 transition-all text-white/40 hover:text-brand-400 hover:border-brand-400/20"
-                >
-                  <Github className="w-5 h-5" />
-                </a>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="animate-fade-in-right">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-white/70 tracking-tight">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] focus:border-brand-400/50 focus:ring-1 focus:ring-brand-400/30 transition-all text-white placeholder-white/35 outline-none"
-                  placeholder="Your name"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-white/70 tracking-tight">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] focus:border-brand-400/50 focus:ring-1 focus:ring-brand-400/30 transition-all text-white placeholder-white/35 outline-none"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Right: form */}
+          <div className="card p-8 sm:p-10" data-reveal data-delay="2">
+            <h3 className="font-bold text-ink-900 text-lg mb-7 tracking-tight">
+              Send a message
+            </h3>
+            <form onSubmit={submit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-white/60 tracking-tight">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] focus:border-brand-400/50 focus:ring-1 focus:ring-brand-400/30 transition-all text-white placeholder-white/35 outline-none"
-                    placeholder="+91 (Your number)"
-                  />
+                  <label className="block text-xs font-bold text-ink-500 mb-1.5 tracking-wide uppercase">Full Name *</label>
+                  <input required name="name" value={form.name} onChange={handle} className={field} placeholder="Your name" />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-white/60 tracking-tight">
-                    Company
-                  </label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] focus:border-brand-400/50 focus:ring-1 focus:ring-brand-400/30 transition-all text-white placeholder-white/35 outline-none"
-                    placeholder="Your company"
-                  />
+                  <label className="block text-xs font-bold text-ink-500 mb-1.5 tracking-wide uppercase">Email *</label>
+                  <input required type="email" name="email" value={form.email} onChange={handle} className={field} placeholder="you@example.com" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-ink-500 mb-1.5 tracking-wide uppercase">Phone</label>
+                  <input type="tel" name="phone" value={form.phone} onChange={handle} className={field} placeholder="+91 ..." />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-ink-500 mb-1.5 tracking-wide uppercase">Company</label>
+                  <input name="company" value={form.company} onChange={handle} className={field} placeholder="Your company" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2 text-white/60 tracking-tight">
-                  Message *
-                </label>
+                <label className="block text-xs font-bold text-ink-500 mb-1.5 tracking-wide uppercase">Message *</label>
                 <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   required
+                  name="message"
+                  value={form.message}
+                  onChange={handle}
                   rows={5}
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] focus:border-brand-400/50 focus:ring-1 focus:ring-brand-400/30 transition-all text-white placeholder-white/25 outline-none resize-none"
+                  className={`${field} resize-none`}
                   placeholder="Tell us about your project..."
                 />
               </div>
 
               <button
                 type="submit"
-                className={`w-full px-8 py-4 rounded-full font-semibold transition-all flex items-center justify-center gap-2 mt-6 tracking-tight ${submitted
-                  ? "bg-green-500 text-white shadow-lg shadow-green-500/20"
-                  : "bg-brand-400 hover:bg-brand-300 text-brand-950 shadow-xl shadow-brand-400/20 hover:shadow-brand-400/40 hover:-translate-y-0.5"
+                disabled={status === "loading" || status === "sent"}
+                className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm transition-all ${status === "sent"
+                    ? "bg-emerald-500 text-white"
+                    : status === "loading"
+                      ? "bg-ink-800 text-white opacity-70 cursor-wait"
+                      : "btn-primary justify-center"
                   }`}
               >
-                <span>{submitted ? "Message Sent! ✓" : "Send Message"}</span>
-                {!submitted && <Send className="w-4 h-4" />}
+                {status === "sent" ? (
+                  "Message Sent! ✓"
+                ) : status === "loading" ? (
+                  "Sending..."
+                ) : (
+                  <>Send Message <Send className="w-4 h-4" /></>
+                )}
               </button>
+
+              {status === "error" && (
+                <p className="text-red-500 text-xs text-center">
+                  Something went wrong. Please try again.
+                </p>
+              )}
             </form>
           </div>
+
         </div>
       </div>
     </section>

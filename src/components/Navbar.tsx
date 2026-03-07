@@ -1,104 +1,111 @@
 "use client";
 
-import { Menu, X, Globe } from "lucide-react";
-import Image from "next/image";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+
+const navLinks = [
+  { label: "Services", href: "#services" },
+  { label: "Work", href: "#projects" },
+  { label: "Team", href: "#team" },
+  { label: "Reviews", href: "#testimonials" },
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const fn = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "Services", href: "#services" },
-    { label: "Projects", href: "#projects" },
-    { label: "Team", href: "#team" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Contact", href: "#contact" }
-  ];
-
   return (
-    <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${scrolled
-      ? "glass-panel border-b border-white/5 shadow-lg shadow-black/20"
-      : "bg-transparent"
-      }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-18">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-3 group cursor-pointer transition-transform hover:scale-105">
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-white/10 shadow-lg shadow-brand-400/10 bg-brand-950">
-              <Image src="/icon.png" alt="CraftMVP Logo" fill className="object-contain p-1" />
-            </div>
-            <span className="text-xl font-bold text-white tracking-tight">
-              Craft<span className="gradient-text">MVP</span>
-            </span>
-          </a>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled
+          ? "bg-white/90 backdrop-blur-xl border-b border-ink-200/60 shadow-[0_1px_20px_rgba(0,0,0,0.06)]"
+          : "bg-transparent"
+        }`}
+    >
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16">
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, i) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-white/60 hover:text-brand-400 transition-colors text-sm font-medium tracking-tight relative group animate-fade-in-down"
-                style={{ animationDelay: `${i * 50}ms` }}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-brand-400 group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
+        {/* Logo */}
+        <a href="#home" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 rounded-lg overflow-hidden border border-ink-200 bg-white flex items-center justify-center transition-transform group-hover:scale-105">
+            <Image src="/icon.png" alt="CraftMVP" width={28} height={28} className="object-contain p-0.5" />
           </div>
+          <span className="text-[17px] font-bold tracking-tight text-ink-900">
+            Craft<span className="gradient-text">MVP</span>
+          </span>
+        </a>
 
-          {/* CTA Button */}
-          <a
-            href="#contact"
-            className="hidden md:flex px-6 py-2.5 rounded-full bg-brand-400 hover:bg-brand-300 text-brand-950 text-sm font-semibold tracking-tight transition-all items-center gap-2 shadow-lg shadow-brand-400/25 hover:shadow-brand-400/40 hover:-translate-y-0.5"
-          >
-            <span>Get Started</span>
-            <Globe className="w-4 h-4" />
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {navLinks.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="px-4 py-2 text-sm font-medium text-ink-500 hover:text-ink-900 rounded-lg hover:bg-ink-100/60 transition-all duration-150"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* CTA */}
+        <div className="hidden md:block">
+          <a href="#contact" className="btn-primary text-sm !py-2.5 !px-5">
+            Let&apos;s Talk
           </a>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white/60 hover:text-brand-400 transition-colors p-2"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden glass-panel rounded-2xl mt-2 mb-4 border border-white/5 animate-fade-in-down">
-            <div className="px-4 py-6 space-y-4">
-              {navLinks.map((link, i) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="block text-white/70 hover:text-brand-400 transition-colors py-2 font-medium tracking-tight animate-fade-in-up"
-                  style={{ animationDelay: `${i * 50}ms` }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
-              <a
-                href="#contact"
-                className="block w-full px-6 py-4 rounded-full bg-brand-400 text-brand-950 font-semibold mt-4 text-center hover:bg-brand-300 tracking-tight transition-all"
-                onClick={() => setIsOpen(false)}
-              >
-                Get Started
-              </a>
-            </div>
-          </div>
-        )}
+        {/* Hamburger */}
+        <button
+          onClick={() => setOpen((p) => !p)}
+          className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-lg hover:bg-ink-100 transition-colors"
+          aria-label="Menu"
+        >
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className={`block h-[1.5px] bg-ink-700 rounded-full transition-all duration-300 ${open
+                  ? i === 0 ? "w-5 translate-y-[6.5px] rotate-45"
+                    : i === 1 ? "w-5 opacity-0"
+                      : "w-5 -translate-y-[6.5px] -rotate-45"
+                  : "w-5"
+                }`}
+            />
+          ))}
+        </button>
       </div>
-    </nav>
+
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${open ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
+          } bg-white border-b border-ink-200`}
+      >
+        <div className="max-w-6xl mx-auto px-5 py-4 space-y-1">
+          {navLinks.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="block px-3 py-2.5 text-sm font-medium text-ink-700 hover:text-ink-900 hover:bg-ink-50 rounded-lg transition-all"
+            >
+              {l.label}
+            </a>
+          ))}
+          <div className="pt-2">
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="btn-primary w-full justify-center text-sm !py-3"
+            >
+              Let&apos;s Talk
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }

@@ -1,122 +1,207 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ArrowRight, Star, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
 import { testimonials } from "@/lib/data";
 
+/* --- floating review card that cycles ---------------------------------- */
+function FloatingReview() {
+  const [idx, setIdx] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const iv = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIdx((p) => (p + 1) % testimonials.length);
+        setVisible(true);
+      }, 350);
+    }, 4000);
+    return () => clearInterval(iv);
+  }, []);
+
+  const t = testimonials[idx];
+  if (!t) return null;
+
+  return (
+    <div className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 z-20 w-72">
+      <div
+        className={`bg-white rounded-2xl border border-ink-200 p-5 shadow-xl shadow-ink-900/8 transition-all duration-350 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+          }`}
+      >
+        <div className="flex gap-0.5 mb-3">
+          {[...Array(t.rating)].map((_, i) => (
+            <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+          ))}
+        </div>
+        <p className="text-[13px] text-ink-600 leading-relaxed mb-4 italic">
+          &ldquo;{t.message}&rdquo;
+        </p>
+        <div className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+            {t.name.charAt(0)}
+          </div>
+          <div>
+            <p className="text-[12px] font-semibold text-ink-900 leading-none mb-0.5">{t.name}</p>
+            <p className="text-[11px] text-ink-400">{t.role} · {t.company}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* --- animated number counter ------------------------------------------ */
+function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [val, setVal] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        const dur = 1200;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - start) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          setVal(Math.round(ease * target));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [target]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {val}{suffix}
+    </span>
+  );
+}
+
+/* --- hero --------------------------------------------------------------- */
 export default function Hero() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [testimonyIndex, setTestimonyIndex] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 100);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTestimonyIndex((prev) => (prev + 1) % testimonials.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const activeTestimonial = testimonials[testimonyIndex];
-
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 relative overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center text-center px-5 pt-24 pb-16 overflow-hidden"
     >
-      {/* Decorative elements */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-brand-400/5 blur-[120px] pointer-events-none animate-pulse-glow" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-brand-600/5 blur-[100px] pointer-events-none" />
+      {/* Soft background blobs */}
+      <div
+        className="hero-blob absolute w-[560px] h-[560px] bg-brand-100/40 -top-20 -left-20 z-0"
+      />
+      <div
+        className="hero-blob absolute w-[400px] h-[400px] bg-violet-100/30 bottom-10 -right-10 z-0"
+        style={{ animationDelay: "-5s", animationDuration: "15s" }}
+      />
 
-      <div className="max-w-5xl mx-auto text-center relative z-10 flex flex-col items-center">
+      {/* Floating review */}
+      <FloatingReview />
 
-        {/* MVP Explainer Pill */}
-        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass-card mb-8 animate-fade-in-down group hover:border-brand-400/20 transition-colors cursor-default">
-          <Sparkles className="w-4 h-4 text-brand-400" />
-          <span className="text-brand-300 text-sm font-semibold tracking-tight">MVP = Minimum Viable Product</span>
-          <span className="text-white/20">·</span>
-          <span className="text-white/70 text-sm font-medium tracking-tight">Your first working version, built fast</span>
+      {/* Content */}
+      <div className="relative z-10 max-w-3xl mx-auto">
+
+        {/* Eyebrow */}
+        <div className="inline-flex items-center gap-2 mb-7">
+          <span className="eyebrow">MVP Studio · India</span>
+          <span className="h-1 w-1 rounded-full bg-brand-400 animate-ping" />
         </div>
 
-        {/* Main Heading */}
-        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[1.05] animate-fade-in-up">
-          <span className="text-white">Elevate Your Business.</span>
+        {/* Heading */}
+        <h1 className="heading-xl text-ink-950 mb-6">
+          We Build{" "}
+          <span className="relative inline-block">
+            <span className="gradient-text">Digital Products</span>
+            {/* underline squiggle */}
+            <svg
+              className="absolute -bottom-2 left-0 w-full h-3 text-brand-200"
+              viewBox="0 0 300 12"
+              fill="none"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M1 6 C50 1, 100 11, 150 6 S250 1, 299 6"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                fill="none"
+              />
+            </svg>
+          </span>{" "}
           <br />
-          <span className="gradient-text">Ship Your MVP Fast.</span>
+          That Actually Launch.
         </h1>
 
-        {/* Subheading */}
-        <p className="text-lg sm:text-xl text-white/70 mb-14 max-w-3xl mx-auto animate-fade-in-up delay-100 font-medium tracking-tight leading-relaxed">
-          We turn your ideas into production-ready MVPs. From mobile apps to websites and business automation — we build, you launch.
+        {/* Sub */}
+        <p className="text-lg text-ink-500 mb-10 max-w-xl mx-auto leading-relaxed">
+          From idea to a live, working product — we design and build mobile apps,
+          websites &amp; automation tools for growing businesses.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-28 animate-fade-in-up delay-200 w-full sm:w-auto">
-          <a
-            href="#contact"
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-400 hover:bg-brand-300 text-brand-950 font-semibold transition-all flex items-center justify-center gap-2 shadow-xl shadow-brand-400/20 hover:shadow-brand-400/40 hover:-translate-y-1 tracking-tight"
-          >
-            <span>Start Your Journey</span>
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-14">
+          <a href="#contact" className="btn-primary w-full sm:w-auto justify-center">
+            Start Your Project
+            <ArrowRight className="w-4 h-4" />
           </a>
-          <a
-            href="#services"
-            className="group w-full sm:w-auto px-8 py-4 rounded-full glass-card hover:border-brand-400/20 text-white font-medium transition-all flex items-center justify-center gap-2 tracking-tight"
-          >
-            <span>Explore Solutions</span>
-            <ArrowRight className="w-4 h-4 text-brand-400 group-hover:translate-x-1 transition-transform" />
+          <a href="#projects" className="btn-secondary w-full sm:w-auto justify-center">
+            See Our Work
+            <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
 
-        {/* Stats */}
-        <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-8 animate-fade-in-up delay-300">
+        {/* Social proof + stats */}
+        <div className="flex flex-wrap items-center justify-center gap-8">
+          {/* Avatar stack + stars */}
+          <div className="flex items-center gap-2.5">
+            <div className="flex -space-x-2.5">
+              {["RC", "AF", "SK"].map((init, i) => (
+                <div
+                  key={i}
+                  className="w-8 h-8 rounded-full bg-brand-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center"
+                >
+                  {init}
+                </div>
+              ))}
+            </div>
+            <div>
+              <div className="flex gap-0.5 mb-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-ink-400 font-medium">30+ happy clients</p>
+            </div>
+          </div>
+
+          <div className="h-8 w-px bg-ink-200 hidden sm:block" />
+
+          {/* Stats */}
           {[
-            { value: "50+", label: "Successful Projects" },
-            { value: "30+", label: "Local Businesses" },
-            { value: "24/7", label: "Reliable Support" }
-          ].map((stat, i) => (
-            <div key={i} className="flex flex-col items-center group">
-              <div className="text-4xl sm:text-5xl font-bold tracking-tighter gradient-text mb-2">
-                {stat.value}
-              </div>
-              <div className="text-white/60 text-sm font-medium tracking-tight">
-                {stat.label}
-              </div>
+            { value: 50, suffix: "+", label: "Projects shipped" },
+            { value: 4, suffix: " wks", label: "Avg. time to launch" },
+          ].map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="text-2xl font-bold text-ink-900 leading-none mb-0.5">
+                <CountUp target={s.value} suffix={s.suffix} />
+              </p>
+              <p className="text-xs text-ink-400 font-medium">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Floating Testimonial */}
-      {activeTestimonial && (
-        <div
-          className={`fixed sm:absolute bottom-8 right-4 sm:right-8 z-50 w-2/3 sm:w-auto max-w-sm transition-all duration-700 pointer-events-none ${isScrolled ? "opacity-0 translate-y-8" : "opacity-100 translate-y-0"
-            }`}
-        >
-          <div
-            key={testimonyIndex}
-            className="glass-card rounded-2xl p-5 animate-fade-in-up shadow-2xl shadow-black/20"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-white tracking-tight">{activeTestimonial.name}</span>
-                <span className="text-xs text-white/60 font-medium">{activeTestimonial.role}, {activeTestimonial.company}</span>
-              </div>
-              <div className="flex gap-0.5">
-                {[...Array(activeTestimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-            </div>
-            <p className="text-sm text-white/70 leading-relaxed italic">
-              &ldquo;{activeTestimonial.message}&rdquo;
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
+        <span className="text-[10px] font-medium text-ink-400 tracking-widest uppercase">Scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-ink-400 to-transparent" />
+      </div>
     </section>
   );
 }

@@ -1,72 +1,74 @@
 "use client";
 
 import { services } from "@/lib/data";
-import { Check, ArrowRight } from "lucide-react";
+import { Check } from "lucide-react";
+
+const serviceIcons = [
+  /* Mobile */
+  <svg key="m" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><rect x="5" y="2" width="14" height="20" rx="3" /><circle cx="12" cy="17.5" r="0.75" fill="currentColor" /></svg>,
+  /* Globe */
+  <svg key="w" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>,
+  /* Automation */
+  <svg key="a" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>,
+  /* Support */
+  <svg key="s" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>,
+];
 
 export default function Services() {
   return (
-    <section id="services" className="py-32 px-4 relative">
-      {/* Section background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-400/[0.02] to-transparent pointer-events-none" />
+    <section id="services" className="section-pad bg-white px-5 relative">
+      {/* Faint top rule */}
+      <div className="absolute top-0 left-8 right-8 h-px bg-ink-100" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-
-        {/* Section Header */}
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tighter animate-fade-in-up">
-            <span className="text-white">Everything You Need to </span>
-            <span className="gradient-text">Launch.</span>
-          </h2>
-          <p className="text-lg text-white/60 font-medium tracking-tight animate-fade-in-up delay-100">
-            From idea to live product — we handle the full stack so you can focus on growing your business.
-          </p>
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-16" data-reveal>
+          <p className="eyebrow mb-3">What We Do</p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <h2 className="heading-lg text-ink-950 max-w-lg">
+              Everything You Need{" "}
+              <span className="gradient-text">to Launch.</span>
+            </h2>
+            <p className="text-ink-400 text-base max-w-xs leading-relaxed md:text-right">
+              Full-stack delivery, from first wireframe to App Store approval.
+            </p>
+          </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {services.map((service, i) => (
+        {/* 2-col grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {services.map((s, i) => (
             <div
-              key={service.id}
-              className="group relative animate-fade-in-up"
-              style={{ animationDelay: `${i * 100}ms` }}
+              key={s.id}
+              className="card p-8 flex flex-col"
+              data-reveal
+              data-delay={String(i + 1)}
             >
-              <div className="relative h-full p-8 sm:p-10 rounded-[2rem] glass-card gradient-border hover:bg-white/[0.06] transition-all duration-500 hover:-translate-y-1 flex flex-col">
-
-                {/* Icon & Title */}
-                <div className="flex items-start gap-5 mb-6">
-                  <div className="flex-shrink-0 w-14 h-14 bg-brand-400/10 border border-brand-400/20 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-brand-400/5">
-                    {service.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-1">
-                      {service.title}
-                    </h3>
-                    <p className="text-white/60 text-sm sm:text-base font-medium tracking-tight leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div className="bg-white/[0.03] rounded-xl p-5 sm:p-6 border border-white/[0.05] flex-grow">
-                  <ul className="space-y-3">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-3 text-white/80 font-medium tracking-tight text-sm sm:text-base">
-                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-400/15 flex items-center justify-center">
-                          <Check className="w-3 h-3 text-brand-400" />
-                        </div>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Hover indicator */}
-                <div className="mt-6 flex items-center gap-2 text-brand-400 font-medium text-sm tracking-tight opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              {/* Number + icon row */}
+              <div className="flex items-start justify-between mb-8">
+                <span className="text-4xl font-bold text-ink-100 leading-none tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="w-11 h-11 rounded-xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center">
+                  {serviceIcons[i]}
                 </div>
               </div>
+
+              {/* Text */}
+              <h3 className="heading-md text-ink-900 mb-3">{s.title}</h3>
+              <p className="text-ink-400 text-sm leading-relaxed mb-6">{s.description}</p>
+
+              {/* Features */}
+              <ul className="mt-auto space-y-2.5">
+                {s.features.map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-ink-600 font-medium">
+                    <div className="flex-shrink-0 w-4 h-4 rounded-full bg-brand-100 flex items-center justify-center">
+                      <Check className="w-2.5 h-2.5 text-brand-600" strokeWidth={3} />
+                    </div>
+                    {f}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

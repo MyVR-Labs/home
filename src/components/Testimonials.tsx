@@ -4,70 +4,77 @@ import { testimonials } from "@/lib/data";
 import { Star, Quote } from "lucide-react";
 
 export default function Testimonials() {
-  if (!testimonials || testimonials.length === 0) {
-    return null;
-  }
+  if (!testimonials?.length) return null;
 
   return (
-    <section id="testimonials" className="py-32 px-4 relative">
-      {/* Decorative */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-brand-400/20 to-transparent" />
-      <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] rounded-full bg-brand-400/[0.03] blur-[100px] pointer-events-none" />
+    <section id="testimonials" className="section-pad bg-ink-50 px-5 relative overflow-hidden">
+      <div className="absolute top-0 left-8 right-8 h-px bg-ink-200" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-24">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tighter animate-fade-in-up">
-            <span className="text-white">Client </span>
-            <span className="gradient-text">Testimonials.</span>
+      {/* Decorative large quote mark */}
+      <div className="absolute right-8 top-16 text-ink-100 select-none pointer-events-none">
+        <Quote className="w-40 h-40" strokeWidth={0.5} />
+      </div>
+
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-16" data-reveal>
+          <p className="eyebrow mb-3">Social Proof</p>
+          <h2 className="heading-lg text-ink-950 max-w-md">
+            Words From Our{" "}
+            <span className="gradient-text">Clients.</span>
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto animate-fade-in-up delay-100 font-light">
-            Insights from partners and clients we&apos;ve helped succeed.
-          </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, i) => (
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {testimonials.map((t, i) => (
             <div
-              key={testimonial.id || i}
-              className="group relative animate-fade-in-up"
-              style={{ animationDelay: `${i * 100}ms` }}
+              key={t.id || i}
+              className="card p-7 flex flex-col h-full relative"
+              data-reveal
+              data-delay={String(i + 1)}
             >
-              <div className="relative p-8 rounded-[2rem] glass-card gradient-border hover:bg-white/[0.06] transition-all duration-300 flex flex-col h-full">
-                {/* Quote Icon */}
-                <div className="absolute top-6 right-6 text-brand-400/20 group-hover:text-brand-400/40 transition-colors">
-                  <Quote className="w-8 h-8" />
+              {/* Stars */}
+              <div className="flex gap-0.5 mb-4">
+                {Array.from({ length: t.rating || 0 }).map((_, j) => (
+                  <Star key={j} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+
+              {/* Quote */}
+              <p className="text-ink-600 text-[15px] leading-relaxed flex-grow mb-6">
+                &ldquo;{t.message}&rdquo;
+              </p>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-5 border-t border-ink-100">
+                <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-bold text-sm flex items-center justify-center flex-shrink-0">
+                  {t.name.charAt(0)}
                 </div>
-
-                {/* Stars */}
-                <div className="flex gap-1 mb-6">
-                  {Array.from({ length: testimonial.rating || 0 }).map((_, idx) => (
-                    <Star
-                      key={idx}
-                      size={16}
-                      className="fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-
-                {/* Quote Text */}
-                <p className="text-white/75 mb-8 text-lg leading-relaxed font-light flex-grow">
-                  &ldquo;{testimonial.message}&rdquo;
-                </p>
-
-                {/* Author */}
-                <div className="pt-6 border-t border-white/[0.06] flex flex-col">
-                  <div className="font-semibold text-white mb-1 tracking-tight">
-                    {testimonial.name}
-                  </div>
-                  <div className="text-sm text-white/60 font-light">
-                    {testimonial.role}, <span className="text-brand-400/80 font-medium">{testimonial.company}</span>
-                  </div>
+                <div>
+                  <p className="font-semibold text-ink-900 text-sm">{t.name}</p>
+                  <p className="text-xs text-ink-400">
+                    {t.role} ·{" "}
+                    <span className="text-brand-600 font-semibold">{t.company}</span>
+                  </p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom badge */}
+        <div className="mt-12 flex justify-center" data-reveal data-delay="4">
+          <div className="inline-flex items-center gap-3 px-5 py-3 bg-white border border-ink-200 rounded-2xl shadow-sm">
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              ))}
+            </div>
+            <span className="text-sm font-bold text-ink-800">5.0</span>
+            <span className="text-ink-200">|</span>
+            <span className="text-sm text-ink-500">From 30+ real clients</span>
+          </div>
         </div>
       </div>
     </section>

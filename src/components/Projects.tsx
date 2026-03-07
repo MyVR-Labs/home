@@ -1,70 +1,72 @@
 "use client";
 
 import { projects } from "@/lib/data";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 
 export default function Projects() {
-  const project = projects.length > 0 ? projects[0] : null;
-
+  const project = projects[0];
   if (!project) return null;
 
   return (
-    <section id="projects" className="py-32 px-4 relative">
-      {/* Background accent */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-400/[0.03] blur-[120px] pointer-events-none" />
+    <section id="projects" className="section-pad bg-ink-50 px-5 relative overflow-hidden">
+      <div className="absolute top-0 left-8 right-8 h-px bg-ink-200" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-
-        {/* Section Header */}
-        <div className="text-center mb-24 max-w-3xl mx-auto">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tighter animate-fade-in-up">
-            <span className="text-white">Featured </span>
-            <span className="gradient-text">Case Study.</span>
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-16" data-reveal>
+          <p className="eyebrow mb-3">Case Study</p>
+          <h2 className="heading-lg text-ink-950 max-w-lg">
+            Real Work.{" "}
+            <span className="gradient-text">Real Results.</span>
           </h2>
-          <p className="text-lg text-white/60 font-medium tracking-tight animate-fade-in-up delay-100">
-            See how we transform complex requirements into seamless, high-performance digital products.
-          </p>
         </div>
 
-        {/* Feature Card */}
-        <div className="max-w-6xl mx-auto animate-fade-in-up delay-200">
-          <div className="group relative rounded-[2.5rem] glass-card gradient-border overflow-hidden hover:bg-white/[0.06] transition-all duration-500 flex flex-col lg:flex-row items-stretch">
+        {/* Big card */}
+        <div
+          className="card overflow-hidden rounded-2xl"
+          data-reveal
+          data-delay="1"
+        >
+          <div className="flex flex-col lg:flex-row">
 
-            {/* Left: Visual */}
-            <div className="w-full lg:w-1/2 h-80 lg:h-auto lg:self-stretch bg-gradient-to-br from-brand-400/10 to-brand-600/5 relative overflow-hidden flex items-center justify-center p-12 border-b lg:border-b-0 lg:border-r border-white/[0.05]">
-              <div className="absolute inset-0 grid-pattern opacity-50" />
-              <div className="relative z-10 transform transition-transform duration-700 group-hover:scale-105">
-                <div className="w-48 h-48 bg-brand-400/10 rounded-[2rem] shadow-2xl shadow-brand-400/10 border border-brand-400/20 flex items-center justify-center">
-                  <span className="text-8xl drop-shadow-lg">{project.image}</span>
-                </div>
+            {/* Visual side */}
+            <div className="lg:w-2/5 bg-gradient-to-br from-brand-600 to-violet-700 min-h-[280px] lg:min-h-0 flex items-center justify-center p-12 relative overflow-hidden">
+              {/* Decorative circles */}
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute rounded-full border border-white/10"
+                  style={{
+                    width: `${(i + 1) * 120}px`,
+                    height: `${(i + 1) * 120}px`,
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                />
+              ))}
+              <div className="relative z-10 w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] bg-white/15 border border-white/20 flex items-center justify-center text-6xl sm:text-7xl backdrop-blur-sm shadow-2xl">
+                {project.image}
               </div>
             </div>
 
-            {/* Right: Content */}
-            <div className="w-full lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+            {/* Info side */}
+            <div className="lg:w-3/5 p-8 sm:p-12 flex flex-col justify-center">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase text-brand-600 mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
+                {project.category}
+              </span>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-400/10 border border-brand-400/20 mb-8 w-max">
-                <span className="flex h-2 w-2 rounded-full bg-brand-400 animate-pulse-glow" />
-                <span className="text-brand-300 text-xs font-semibold tracking-wide uppercase">
-                  {project.category}
-                </span>
-              </div>
-
-              <h3 className="text-4xl sm:text-5xl font-bold mb-6 text-white tracking-tighter leading-tight">
-                {project.title}
-              </h3>
-
-              <p className="text-lg sm:text-xl text-white/60 mb-10 leading-relaxed font-light tracking-tight">
+              <h3 className="heading-md text-ink-950 mb-4">{project.title}</h3>
+              <p className="text-ink-500 text-base leading-relaxed mb-8 max-w-md">
                 {project.description}
               </p>
 
-              <div className="flex flex-wrap gap-3 mb-12">
-                {project.technologies.map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className="text-sm font-medium bg-white/[0.05] text-white/80 px-4 py-2 rounded-full border border-white/10"
-                  >
-                    {tech}
+              {/* Tech stack */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {project.technologies.map((t) => (
+                  <span key={t} className="px-3 py-1.5 bg-ink-100 text-ink-600 text-xs font-semibold rounded-full border border-ink-200">
+                    {t}
                   </span>
                 ))}
               </div>
@@ -74,18 +76,29 @@ export default function Projects() {
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-400 hover:bg-brand-300 text-brand-950 rounded-full font-semibold transition-all group/btn shadow-xl shadow-brand-400/20 hover:shadow-brand-400/40 hover:-translate-y-0.5 tracking-tight w-full sm:w-max"
+                  className="btn-brand w-max text-sm"
                 >
-                  <span>Explore {project.title.split(' ')[0]}</span>
-                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                  Visit Live Site
+                  <ExternalLink className="w-4 h-4" />
                 </a>
               ) : (
-                <div className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 text-white/30 rounded-full font-medium tracking-tight w-full sm:w-max cursor-not-allowed border border-white/5">
-                  <span>In Development</span>
-                </div>
+                <span className="inline-flex items-center gap-2 text-sm text-ink-400 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-ink-300 animate-pulse" />
+                  In Development
+                </span>
               )}
             </div>
           </div>
+        </div>
+
+        {/* More projects hint */}
+        <div className="mt-8 text-center" data-reveal data-delay="2">
+          <p className="text-ink-400 text-sm">
+            More projects on the way.{" "}
+            <a href="#contact" className="text-brand-600 font-semibold hover:underline">
+              Work with us →
+            </a>
+          </p>
         </div>
       </div>
     </section>

@@ -1,106 +1,118 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.05] py-16 px-4 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
+    <footer className="bg-ink-950 text-white relative overflow-hidden">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      {/* Top accent line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent" />
+
+      {/* BG blob */}
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-900/20 blur-[120px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 relative z-10">
+
+        {/* CTA row */}
+        <div className="py-16 sm:py-20 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+          <div>
+            <p className="text-white/40 text-xs font-bold tracking-widest uppercase mb-3">Ready when you are</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
+              Got an idea? <br />
+              <span className="gradient-text">Let&apos;s ship it.</span>
+            </h2>
+          </div>
+          <a
+            href="#contact"
+            className="btn-brand flex-shrink-0 text-base !px-8 !py-4"
+          >
+            Start a Project
+            <ArrowRight className="w-5 h-5" />
+          </a>
+        </div>
+
+        {/* Main grid */}
+        <div className="py-14 grid grid-cols-2 sm:grid-cols-4 gap-10">
+
           {/* Brand */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 group cursor-pointer transition-transform hover:scale-105">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-white/10 shadow-lg shadow-brand-400/5 bg-brand-950">
-                <Image src="/icon.png" alt="CraftMVP Logo" fill className="object-contain p-1" />
+          <div className="col-span-2 sm:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/10 border border-white/10 flex-shrink-0">
+                <Image src="/icon.png" alt="CraftMVP" width={32} height={32} className="object-contain p-0.5" />
               </div>
-              <h3 className="text-xl font-bold text-white tracking-tight">
+              <span className="font-bold text-[17px] tracking-tight">
                 Craft<span className="gradient-text">MVP</span>
-              </h3>
+              </span>
             </div>
-            <p className="text-white/50 text-sm leading-relaxed font-light mt-2">
-              Turning ideas into production-ready MVPs. Mobile apps, websites, and smart automation for growing businesses.
+            <p className="text-white/40 text-sm leading-relaxed mb-5">
+              Turning ideas into production-ready digital products for growing businesses.
             </p>
+            <div className="space-y-2">
+              <a href="tel:+919059790014" className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm">
+                <Phone className="w-3.5 h-3.5" /> +91 9059790014
+              </a>
+              <a href="mailto:craftmvp.in@gmail.com" className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm">
+                <Mail className="w-3.5 h-3.5" /> craftmvp.in@gmail.com
+              </a>
+            </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold text-white/80 mb-6 tracking-wide uppercase text-xs">Services</h4>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-white/30 mb-5">Services</h4>
             <ul className="space-y-3">
-              {["Mobile Apps", "Web Development", "Business Automation", "Ongoing Support"].map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
-                    className="text-white/30 hover:text-brand-400 transition-colors text-sm font-medium flex items-center gap-2 group"
-                  >
-                    <span className="text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                    {service}
+              {["Mobile Apps", "Web Development", "Automation", "Support"].map((s) => (
+                <li key={s}>
+                  <a href="#services" className="text-sm text-white/50 hover:text-white transition-colors">
+                    {s}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Company */}
           <div>
-            <h4 className="font-semibold text-white/80 mb-6 tracking-wide uppercase text-xs">Quick Links</h4>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-white/30 mb-5">Company</h4>
             <ul className="space-y-3">
-              {["Home", "Projects", "Team", "Contact"].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
-                    className="text-white/50 hover:text-brand-400 transition-colors text-sm font-medium flex items-center gap-2 group"
-                  >
-                    <span className="text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                    {link}
+              {[
+                { label: "Home", href: "#home" },
+                { label: "Work", href: "#projects" },
+                { label: "Team", href: "#team" },
+                { label: "Contact", href: "#contact" },
+              ].map((l) => (
+                <li key={l.label}>
+                  <a href={l.href} className="text-sm text-white/50 hover:text-white transition-colors">
+                    {l.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Quote */}
           <div>
-            <h4 className="font-semibold text-white/80 mb-6 tracking-wide uppercase text-xs">Get In Touch</h4>
-            <ul className="space-y-3 text-white/50 text-sm font-light">
-              <li className="hover:text-brand-400 transition-colors font-medium">
-                Email: hello@craftmvp.in
-              </li>
-              <li className="hover:text-brand-400 transition-colors font-medium">
-                Phone: +91 9059790014
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t border-white/[0.05] pt-8 mt-12">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-white/40 text-sm font-light">
-              &copy; 2026 CraftMVP. All rights reserved.
+            <h4 className="text-xs font-bold tracking-widest uppercase text-white/30 mb-5">Let&apos;s Talk</h4>
+            <p className="text-sm text-white/40 leading-relaxed mb-4">
+              We reply within 24 hours. No spam, ever.
             </p>
-            <div className="flex gap-8 flex-wrap justify-center md:justify-end">
-              <a href="#" className="text-white/40 hover:text-white/60 transition-colors text-sm font-light">Privacy Policy</a>
-              <a href="#" className="text-white/40 hover:text-white/60 transition-colors text-sm font-light">Terms of Service</a>
-            </div>
+            <a href="#contact" className="text-sm text-brand-400 font-semibold hover:text-brand-300 transition-colors flex items-center gap-1 group">
+              Contact us
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          </div>
+
+        </div>
+
+        {/* Bottom */}
+        <div className="border-t border-white/[0.07] py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
+          <p>© 2026 CraftMVP. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white/60 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white/60 transition-colors">Terms</a>
           </div>
         </div>
 
-        {/* Scroll to Top */}
-        <div className="mt-8 flex justify-center">
-          <a
-            href="#home"
-            className="p-3 rounded-full glass-card hover:bg-brand-400/15 text-white/30 hover:text-brand-400 transition-all hover:-translate-y-1 hover:border-brand-400/20"
-          >
-            <ArrowRight className="w-4 h-4 -rotate-90" />
-          </a>
-        </div>
       </div>
     </footer>
   );

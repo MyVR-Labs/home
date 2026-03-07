@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CraftMVP | We Build MVPs for Businesses",
+  title: "CraftMVP | We Build MVPs for Growing Businesses",
   description: "CraftMVP builds production-ready MVPs — websites, mobile apps, and business automation tools — so you can launch faster and grow smarter.",
-  keywords: "MVP development, web development, mobile app development, business automation, startup MVP, website builder",
+  keywords: "MVP development, web development, mobile app development, business automation, startup MVP",
   authors: [{ name: "CraftMVP" }],
   openGraph: {
-    title: "CraftMVP | We Build MVPs for Businesses",
+    title: "CraftMVP | We Build MVPs for Growing Businesses",
     description: "Ship your MVP fast. We build websites, mobile apps, and automation tools for businesses.",
     type: "website",
   }
@@ -15,17 +15,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className="bg-brand-950 text-white antialiased selection:bg-brand-400/30" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <body
+        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+        className="bg-white text-ink-900 antialiased"
+      >
         {children}
       </body>
     </html>

@@ -1,78 +1,60 @@
 "use client";
 
 import { team } from "@/lib/data";
-import { Mail, Github, Linkedin } from "lucide-react";
+import { Linkedin, Github, Mail } from "lucide-react";
+
+const avatarColors = [
+  "bg-brand-100 text-brand-700",
+  "bg-violet-100 text-violet-700",
+  "bg-emerald-100 text-emerald-700",
+];
 
 export default function Team() {
   return (
-    <section id="team" className="py-32 px-4 relative">
-      {/* Decorative */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-brand-400/20 to-transparent" />
+    <section id="team" className="section-pad bg-white px-5 relative">
+      <div className="absolute top-0 left-8 right-8 h-px bg-ink-100" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-24">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 tracking-tighter animate-fade-in-up">
-            <span className="text-white">Meet Our </span>
-            <span className="gradient-text">Leadership.</span>
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-16 text-center" data-reveal>
+          <p className="eyebrow mb-3">The People</p>
+          <h2 className="heading-lg text-ink-950">
+            Built by Developers,{" "}
+            <br className="hidden sm:block" />
+            <span className="gradient-text">for Builders.</span>
           </h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto animate-fade-in-up delay-100 font-light">
-            A dedicated team of experts delivering innovative, high-quality digital solutions.
-          </p>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map((member, i) => (
             <div
               key={member.id}
-              className="group relative animate-fade-in-up"
-              style={{ animationDelay: `${i * 100}ms` }}
+              className="card p-8 text-center group"
+              data-reveal
+              data-delay={String(i + 1)}
             >
-              <div className="relative p-8 text-center rounded-[2rem] glass-card gradient-border hover:bg-white/[0.06] transition-all duration-300">
-                {/* Avatar */}
-                <div className="mb-6 relative inline-block">
-                  <div className="relative w-24 h-24 rounded-[2rem] bg-gradient-to-br from-brand-400/20 to-brand-600/10 flex items-center justify-center text-4xl border border-brand-400/20 shadow-lg shadow-brand-400/5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-brand-400/15">
-                    {member.image}
-                  </div>
-                </div>
+              {/* Avatar */}
+              <div className={`w-16 h-16 rounded-2xl ${avatarColors[i]} flex items-center justify-center text-2xl font-bold mx-auto mb-5 transition-transform duration-300 group-hover:scale-110`}>
+                {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+              </div>
 
-                {/* Name */}
-                <h3 className="text-xl font-bold mb-1 text-white group-hover:text-brand-300 transition-colors tracking-tight">
-                  {member.name}
-                </h3>
+              {/* Info */}
+              <h3 className="font-bold text-ink-900 text-lg mb-1">{member.name}</h3>
+              <p className="text-brand-600 text-sm font-semibold mb-3">{member.role}</p>
+              <p className="text-ink-400 text-sm leading-relaxed mb-6">{member.expertise}</p>
 
-                {/* Role */}
-                <p className="text-brand-400 font-medium mb-4 text-sm tracking-wide">
-                  {member.role}
-                </p>
-
-                {/* Expertise */}
-                <p className="text-white/60 text-sm mb-6 leading-relaxed font-light">
-                  {member.expertise}
-                </p>
-
-                {/* Social Links */}
-                <div className="flex justify-center gap-3 pt-6 border-t border-white/[0.06]">
+              {/* Social */}
+              <div className="flex justify-center gap-2 pt-5 border-t border-ink-100">
+                {[Linkedin, Github, Mail].map((Icon, j) => (
                   <a
+                    key={j}
                     href="#"
-                    className="p-2.5 rounded-xl bg-white/[0.05] hover:bg-brand-400/15 text-white/40 hover:text-brand-400 transition-all border border-white/[0.05] hover:border-brand-400/20"
+                    className="card-sm w-8 h-8 flex items-center justify-center text-ink-400 hover:text-brand-600 rounded-lg cursor-pointer"
                   >
-                    <Linkedin className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5" />
                   </a>
-                  <a
-                    href="#"
-                    className="p-2.5 rounded-xl bg-white/[0.05] hover:bg-brand-400/15 text-white/40 hover:text-brand-400 transition-all border border-white/[0.05] hover:border-brand-400/20"
-                  >
-                    <Github className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="#"
-                    className="p-2.5 rounded-xl bg-white/[0.05] hover:bg-brand-400/15 text-white/40 hover:text-brand-400 transition-all border border-white/[0.05] hover:border-brand-400/20"
-                  >
-                    <Mail className="w-4 h-4" />
-                  </a>
-                </div>
+                ))}
               </div>
             </div>
           ))}
