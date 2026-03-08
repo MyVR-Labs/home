@@ -14,15 +14,10 @@ export default function Contact() {
     e.preventDefault();
     setStatus("loading");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: "YOUR_ACCESS_KEY_HERE",
-          subject: `New inquiry from ${form.name} — CraftMVP`,
-          from_name: "CraftMVP Website",
-          ...form,
-        }),
+        body: JSON.stringify(form),
       });
       setStatus(res.ok ? "sent" : "error");
       if (res.ok) {
