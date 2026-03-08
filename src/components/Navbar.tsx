@@ -32,7 +32,7 @@ export default function Navbar() {
 
         {/* Left: Logo */}
         <a href="#home" className="flex items-center gap-2 flex-shrink-0 group">
-          <Image src="/logo.svg" alt="CraftMVP Logo" width={32} height={32} className="object-contain" />
+          <Image src="/logo.svg" alt="CraftMVP Logo" width={92} height={92} className="object-contain" />
           <span className={`text-[16px] font-bold tracking-tight hidden sm:inline ${scrolled ? 'text-white' : 'text-ink-950'}`}>
             CraftMVP
           </span>

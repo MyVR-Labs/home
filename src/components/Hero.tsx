@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
@@ -8,7 +9,12 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center px-5 pt-20 overflow-hidden bg-white"
     >
-      <div className="max-w-4xl mx-auto w-full text-center">
+      {/* Background Logo */}
+      <div className="absolute inset-x-0 top-54 bottom-0 flex items-center justify-center opacity-[0.045] pointer-events-none select-none ">
+        <Image src="/logo.svg" alt="CraftMVP Background" width={2400} height={2400} className="w-[300vw] sm:w-[200vw] md:w-[150vw] h-auto max-w-none object-contain" priority />
+      </div>
+
+      <div className="max-w-4xl mx-auto w-full text-center relative z-10">
 
         {/* Main heading */}
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-ink-950 mb-8 leading-tight tracking-tight">
