@@ -24,17 +24,15 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled
-          ? "bg-ink-950 border-b border-ink-800 shadow-sm"
-          : "bg-white border-b border-transparent"
+        ? "bg-ink-950 border-b border-ink-800 shadow-sm"
+        : "bg-white border-b border-transparent"
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
 
         {/* Left: Logo */}
         <a href="#home" className="flex items-center gap-2 flex-shrink-0 group">
-          <div className={`w-7 h-7 rounded-md ${scrolled ? 'bg-brand-600' : 'bg-brand-600'} text-white flex items-center justify-center font-bold text-sm`}>
-            C
-          </div>
+          <Image src="/logo.svg" alt="CraftMVP Logo" width={32} height={32} className="object-contain" />
           <span className={`text-[16px] font-bold tracking-tight hidden sm:inline ${scrolled ? 'text-white' : 'text-ink-950'}`}>
             CraftMVP
           </span>

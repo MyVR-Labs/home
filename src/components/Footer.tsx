@@ -37,8 +37,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg overflow-hidden bg-white/10 border border-white/10 flex-shrink-0">
-                <Image src="/icon.png" alt="CraftMVP" width={32} height={32} className="object-contain p-0.5" />
+              <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
+                <Image src="/logo.svg" alt="CraftMVP Logo" width={32} height={32} className="object-contain" />
               </div>
               <span className="font-bold text-[17px] tracking-tight">
                 Craft<span className="gradient-text">MVP</span>
