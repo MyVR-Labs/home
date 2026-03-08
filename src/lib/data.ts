@@ -1,25 +1,25 @@
 export const services = [
   {
     id: 1,
-    title: "Built for purpose",
-    description: "Beautiful design meets powerful functionality. We craft digital experiences that are so intuitive, users wonder how they ever lived without them. Every detail obsessed over. Every interaction perfected.",
-    icon: "🎨",
+    title: "Websites & App MVPs",
+    description: "Launch your startup idea fast. We craft production-ready mobile apps and websites that are intuitive, scalable, and built for purpose. From concept to deployment, we've got you covered.",
+    icon: "📱",
     image: "/service_built_for_purpose.png",
     features: []
   },
   {
     id: 2,
-    title: "Powered by innovation",
-    description: "Technology that works seamlessly in the background. We harness cutting-edge tools and frameworks to create systems that scale, perform, and adapt. Built to grow with your ambitions.",
-    icon: "⚡",
+    title: "AI Agents & Innovation",
+    description: "Technology that works seamlessly in the background. We harness cutting-edge AI tools and agents to automate your workflows, perform complex tasks, and give your business a competitive edge.",
+    icon: "🤖",
     image: "/service_powered_by_innovation.png",
     features: []
   },
   {
     id: 3,
-    title: "Designed for impact",
-    description: "Simplicity is the ultimate sophistication. We distill complexity into elegance, creating products that don't just solve problems—they inspire transformation. Form and function, inseparable.",
-    icon: "✨",
+    title: "Fast, Reliable & Affordable",
+    description: "We distill complexity into elegance. Get ongoing maintenance and high-quality digital products delivered at startup speed—without breaking your budget. Dependable partnerships for long-term growth.",
+    icon: "🚀",
     image: "/service_designed_for_impact.png",
     features: []
   }

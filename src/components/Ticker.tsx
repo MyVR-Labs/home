@@ -9,7 +9,7 @@ export default function Ticker() {
                 {/* Repeat the text multiple times to ensure it covers the screen width infinitely */}
                 {[...Array(6)].map((_, i) => (
                     <span key={i} className="text-brand-700 font-medium text-sm md:text-base mx-8 flex items-center gap-8">
-                        Why can't you be the first one .. grab the opportunity..
+                        We're not just vendors. We're your technical partners.
                         <span className="w-2 h-2 rounded-full bg-brand-400 opacity-50" />
                     </span>
                 ))}
@@ -18,7 +18,7 @@ export default function Ticker() {
             <div className="absolute top-0 py-4 animate-marquee2 whitespace-nowrap flex items-center">
                 {[...Array(6)].map((_, i) => (
                     <span key={i} className="text-brand-700 font-medium text-sm md:text-base mx-8 flex items-center gap-8">
-                        Why can't you be the first one .. grab the opportunity..
+                        We're not just vendors. We're your technical partners.
                         <span className="w-2 h-2 rounded-full bg-brand-400 opacity-50" />
                     </span>
                 ))}
