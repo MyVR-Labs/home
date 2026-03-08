@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-ink-950 text-white relative overflow-hidden">
 
       {/* Top accent line */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-brand-500" />
 
       {/* BG blob */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-900/20 blur-[120px] pointer-events-none" />

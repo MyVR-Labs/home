@@ -1,77 +1,116 @@
 "use client";
 
 import { services } from "@/lib/data";
-import { Check } from "lucide-react";
-
-const serviceIcons = [
-  /* Mobile */
-  <svg key="m" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><rect x="5" y="2" width="14" height="20" rx="3" /><circle cx="12" cy="17.5" r="0.75" fill="currentColor" /></svg>,
-  /* Globe */
-  <svg key="w" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>,
-  /* Automation */
-  <svg key="a" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>,
-  /* Support */
-  <svg key="s" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>,
-];
+import { useRef } from "react";
 
 export default function Services() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const colors = [
+    { bg: "bg-sky-100", text: "text-slate-900", titleText: "text-slate-900", icon: "bg-sky-500" },
+    { bg: "bg-yellow-300", text: "text-slate-900", titleText: "text-slate-900", icon: "bg-yellow-500" },
+    { bg: "bg-purple-100", text: "text-purple-900", titleText: "text-purple-900", icon: "bg-purple-500" },
+    { bg: "bg-green-100", text: "text-green-900", titleText: "text-green-900", icon: "bg-green-500" },
+    { bg: "bg-pink-100", text: "text-pink-900", titleText: "text-pink-900", icon: "bg-pink-500" },
+    { bg: "bg-orange-100", text: "text-orange-900", titleText: "text-orange-900", icon: "bg-orange-500" },
+  ];
+
   return (
-    <section id="services" className="section-pad bg-white px-5 relative">
-      {/* Faint top rule */}
-      <div className="absolute top-0 left-8 right-8 h-px bg-ink-100" />
+    <section id="services" className="w-full bg-white px-5 py-24 relative">
+      <div className="max-w-7xl mx-auto">
 
-      <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-16" data-reveal>
-          <p className="eyebrow mb-3">What We Do</p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <h2 className="heading-lg text-ink-950 max-w-lg">
-              Everything You Need{" "}
-              <span className="gradient-text">to Launch.</span>
-            </h2>
-            <p className="text-ink-400 text-base max-w-xs leading-relaxed md:text-right">
-              Full-stack delivery, from first wireframe to App Store approval.
-            </p>
-          </div>
+        <div className="mb-20 text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-ink-950 mb-4 leading-tight">
+            Our Services
+          </h2>
+          <p className="text-base text-ink-500 leading-relaxed">
+            Building solutions that matter. Transform your vision into reality.
+          </p>
         </div>
 
-        {/* 2-col grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {services.map((s, i) => (
-            <div
-              key={s.id}
-              className="card p-8 flex flex-col"
-              data-reveal
-              data-delay={String(i + 1)}
-            >
-              {/* Number + icon row */}
-              <div className="flex items-start justify-between mb-8">
-                <span className="text-4xl font-bold text-ink-100 leading-none tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="w-11 h-11 rounded-xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center">
-                  {serviceIcons[i]}
-                </div>
-              </div>
+        {/* Services Slider */}
+        <div className="w-full overflow-hidden">
+          <style>{`
+            #services-carousel {
+              scroll-snap-type: x mandatory;
+              scroll-behavior: smooth;
+              -webkit-overflow-scrolling: touch;
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+            }
+            #services-carousel::-webkit-scrollbar {
+              display: none;
+            }
+            .carousel-item {
+              scroll-snap-align: start;
+              scroll-snap-stop: always;
+              animation: slideInUp 0.6s ease-out forwards;
+              opacity: 0;
+            }
+            @keyframes slideInUp {
+              from {
+                opacity: 0;
+                transform: translateY(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
+          <div
+            ref={carouselRef}
+            id="services-carousel"
+            className="flex overflow-x-scroll scrollbar-hide"
+          >
+            {services.map((service, index) => {
+                const color = colors[index % colors.length];
 
-              {/* Text */}
-              <h3 className="heading-md text-ink-900 mb-3">{s.title}</h3>
-              <p className="text-ink-400 text-sm leading-relaxed mb-6">{s.description}</p>
+                return (
+                  <div
+                    key={service.id}
+                    className="carousel-item flex-shrink-0 w-full"
+                  >
+                    <div className="w-full flex flex-col md:flex-row gap-6 mx-auto min-h-[400px]">
+                      {/* Left Side 65% text */}
+                      <div className={`${color.bg} md:w-[65%] flex flex-col justify-between p-8 md:p-14 rounded-3xl shadow-sm h-full`}>
+                        <div className="flex-1">
+                          <div className={`${color.icon} w-16 h-16 rounded-2xl text-white font-bold text-3xl flex items-center justify-center mb-8 shadow-sm`}>
+                            {service.icon}
+                          </div>
+                          <p className={`text-sm font-bold ${color.text} uppercase tracking-widest mb-4 opacity-70`}>
+                            0{index + 1}
+                          </p>
+                          <h3 className={`text-3xl md:text-4xl lg:text-5xl font-bold ${color.text} mb-6 leading-tight`}>
+                            {service.title}
+                          </h3>
+                          <p className={`${color.text} text-base md:text-lg lg:text-xl font-light leading-relaxed opacity-90`}>
+                            {service.description}
+                          </p>
+                        </div>
+                      </div>
 
-              {/* Features */}
-              <ul className="mt-auto space-y-2.5">
-                {s.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-ink-600 font-medium">
-                    <div className="flex-shrink-0 w-4 h-4 rounded-full bg-brand-100 flex items-center justify-center">
-                      <Check className="w-2.5 h-2.5 text-brand-600" strokeWidth={3} />
+                      {/* Right Side 35% image */}
+                      <div className="md:w-[35%] h-64 md:h-auto rounded-3xl overflow-hidden relative shadow-sm">
+                        {service.image ? (
+                          <img
+                            src={service.image}
+                            alt={service.title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-slate-100 flex items-center justify-center">
+                            <span className="text-8xl opacity-20">{service.icon}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    {f}
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+          </div>
       </div>
     </section>
   );

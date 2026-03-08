@@ -1,31 +1,27 @@
 export const services = [
   {
     id: 1,
-    title: "Mobile App Development",
-    description: "Android & iOS apps built with Flutter for seamless experiences.",
-    icon: "📱",
-    features: ["Booking Systems", "E-commerce & Ordering", "Customer Loyalty Apps"]
+    title: "Built for purpose",
+    description: "Beautiful design meets powerful functionality. We craft digital experiences that are so intuitive, users wonder how they ever lived without them. Every detail obsessed over. Every interaction perfected.",
+    icon: "🎨",
+    image: "/service_built_for_purpose.png",
+    features: []
   },
   {
     id: 2,
-    title: "Website Development",
-    description: "Highly performant web solutions that showcase your brand.",
-    icon: "💻",
-    features: ["Business Showcase Websites", "Admin Dashboards", "Patient & Student Portals"]
+    title: "Powered by innovation",
+    description: "Technology that works seamlessly in the background. We harness cutting-edge tools and frameworks to create systems that scale, perform, and adapt. Built to grow with your ambitions.",
+    icon: "⚡",
+    image: "/service_powered_by_innovation.png",
+    features: []
   },
   {
     id: 3,
-    title: "Business Automation",
-    description: "Streamline operations with smart digital automation tools.",
-    icon: "⚙️",
-    features: ["Online Payments & Billing", "SMS/WhatsApp Notifications", "Simple CRM & Tracking"]
-  },
-  {
-    id: 4,
-    title: "Ongoing Support",
-    description: "Reliable maintenance scaling alongside your business.",
-    icon: "🛠️",
-    features: ["Bug Fixes & Optimization", "App Store Maintenance", "Analytics & Reporting"]
+    title: "Designed for impact",
+    description: "Simplicity is the ultimate sophistication. We distill complexity into elegance, creating products that don't just solve problems—they inspire transformation. Form and function, inseparable.",
+    icon: "✨",
+    image: "/service_designed_for_impact.png",
+    features: []
   }
 ];
 

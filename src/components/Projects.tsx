@@ -30,7 +30,7 @@ export default function Projects() {
           <div className="flex flex-col lg:flex-row">
 
             {/* Visual side */}
-            <div className="lg:w-2/5 bg-gradient-to-br from-brand-600 to-violet-700 min-h-[280px] lg:min-h-0 flex items-center justify-center p-12 relative overflow-hidden">
+            <div className="lg:w-2/5 bg-brand-600 min-h-[280px] lg:min-h-0 flex items-center justify-center p-12 relative overflow-hidden">
               {/* Decorative circles */}
               {[...Array(4)].map((_, i) => (
                 <div

@@ -7,18 +7,18 @@
    ============================================= */
 
 @theme {
-    /* Electric Blue — brand */
-    --color-brand-50: #EFF6FF;
-    --color-brand-100: #DBEAFE;
-    --color-brand-200: #BFDBFE;
-    --color-brand-300: #93C5FD;
-    --color-brand-400: #60A5FA;
-    --color-brand-500: #3B82F6;
-    --color-brand-600: #2563EB;
-    --color-brand-700: #1D4ED8;
-    --color-brand-800: #1E40AF;
-    --color-brand-900: #1E3A8A;
-    --color-brand-950: #172554;
+    /* Teal Brand Colors */
+    --color-brand-50: #E0F2F1;
+    --color-brand-100: #B2DFDB;
+    --color-brand-200: #80CBC4;
+    --color-brand-300: #4DB8AC;
+    --color-brand-400: #26A69A;
+    --color-brand-500: #008A92;
+    --color-brand-600: #008F83;
+    --color-brand-700: #008087;
+    --color-brand-800: #00695C;
+    --color-brand-900: #004D40;
+    --color-brand-950: #003D33;
 
     /* Warm Neutrals */
     --color-ink-50: #FAFAF9;
@@ -32,6 +32,18 @@
     --color-ink-800: #292524;
     --color-ink-900: #1C1917;
     --color-ink-950: #0C0A09;
+
+    --animate-marquee: marquee 25s linear infinite;
+    --animate-marquee2: marquee2 25s linear infinite;
+
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+    @keyframes marquee2 {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(0%); }
+    }
 }
 
 /* =============================================
@@ -86,18 +98,15 @@ body {
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #2563EB;
+    color: #008087;
 }
 
 /* =============================================
-   GRADIENT TEXT
+   GRADIENT TEXT (Solid Color)
    ============================================= */
 
 .gradient-text {
-    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #008087;
 }
 
 /* =============================================
@@ -159,8 +168,8 @@ body {
     align-items: center;
     gap: 8px;
     padding: 14px 28px;
-    border: 1.5px solid #D6D3D1;
-    color: #1C1917;
+    border: 1.5px solid #008087;
+    color: #008087;
     font-size: 0.9375rem;
     font-weight: 600;
     border-radius: 10px;
@@ -170,8 +179,8 @@ body {
 }
 
 .btn-secondary:hover {
-    border-color: #1C1917;
-    background: #FAFAF9;
+    border-color: #008F83;
+    background: #E0F2F1;
     transform: translateY(-1px);
 }
 
@@ -180,20 +189,20 @@ body {
     align-items: center;
     gap: 8px;
     padding: 14px 28px;
-    background: #2563EB;
+    background: #008A92;
     color: #FFFFFF;
     font-size: 0.9375rem;
     font-weight: 600;
     border-radius: 10px;
     letter-spacing: -0.01em;
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 138, 146, 0.3);
 }
 
 .btn-brand:hover {
-    background: #1D4ED8;
+    background: #008F83;
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 8px 24px rgba(0, 138, 146, 0.35);
 }
 
 /* =============================================

@@ -7,6 +7,7 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import Ticker from "@/components/Ticker";
 
 export default function Home() {
   return (
@@ -15,8 +16,9 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Ticker />
         <Services />
-        <Projects />
+        {/* <Projects /> */}
         <Team />
         <Testimonials />
         <Contact />
