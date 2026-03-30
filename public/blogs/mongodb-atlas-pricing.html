@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MongoDB Atlas Pricing Guide — CraftMVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafaf9;
+      --surface: #ffffff;
+      --border: #e8e6e1;
+      --border-light: #f0ede8;
+      --text-primary: #1a1916;
+      --text-secondary: #5c5852;
+      --text-muted: #9c9890;
+      --green: #00684a;
+      --green-light: #e3f5ef;
+      --green-mid: #c3e8db;
+      --green-accent: #00ed64;
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+      --blue: #1e40af;
+      --blue-light: #eff6ff;
+      --red-light: #fff1f2;
+      --red: #be123c;
+      --tag-bg: #f5f4f1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOP NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo span {
+      color: var(--green);
+    }
+    .nav-pill {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .post-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 48px;
+      padding: 48px 0 80px;
+    }
+
+    /* ── HEADER ── */
+    .post-header {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .post-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      max-width: 720px;
+    }
+    .post-subtitle {
+      font-size: 17px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 640px;
+      line-height: 1.65;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-dot { color: var(--border); }
+
+    /* ── MAIN CONTENT ── */
+    .post-content h2 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 40px 0 14px;
+      padding-top: 8px;
+    }
+    .post-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin: 28px 0 12px;
+    }
+    .post-content p {
+      color: var(--text-secondary);
+      font-size: 15.5px;
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+    .post-content p:last-child { margin-bottom: 0; }
+
+    /* ── PLAN CARDS ── */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .plan-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      background: var(--surface);
+      position: relative;
+    }
+    .plan-card.featured {
+      border-color: var(--green);
+      border-width: 1.5px;
+    }
+    .featured-badge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .plan-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .plan-price sup { font-size: 14px; vertical-align: top; margin-top: 4px; display: inline-block; }
+    .plan-price-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .plan-divider {
+      border: none;
+      border-top: 1px solid var(--border-light);
+      margin: 16px 0;
+    }
+    .plan-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      margin-bottom: 9px;
+    }
+    .plan-feature .check {
+      color: var(--green);
+      font-size: 14px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .plan-feature .x {
+      color: #d1ccc5;
+      font-size: 14px;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    /* ── PRICING TABLE ── */
+    .pricing-table-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .pricing-table thead {
+      background: #f7f5f2;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-table thead th {
+      padding: 11px 18px;
+      text-align: left;
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+    }
+    .pricing-table tbody tr {
+      border-bottom: 1px solid var(--border-light);
+    }
+    .pricing-table tbody tr:last-child { border-bottom: none; }
+    .pricing-table tbody tr:hover { background: #faf9f7; }
+    .pricing-table tbody td {
+      padding: 11px 18px;
+      color: var(--text-secondary);
+    }
+    .pricing-table tbody td:first-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .pricing-table td.cost {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .pricing-table td.monthly {
+      font-weight: 600;
+      color: var(--green);
+    }
+    .pricing-table tr.highlight-row td {
+      background: var(--green-light);
+    }
+
+    /* ── CALLOUT BOXES ── */
+    .callout {
+      border-radius: 7px;
+      padding: 18px 22px;
+      margin: 24px 0;
+      font-size: 14px;
+      line-height: 1.65;
+      display: flex;
+      gap: 14px;
+    }
+    .callout-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+    .callout-body { color: var(--text-secondary); }
+    .callout-body strong { color: var(--text-primary); font-weight: 600; }
+    .callout.tip { background: var(--green-light); border: 1px solid var(--green-mid); }
+    .callout.warning { background: var(--amber-light); border: 1px solid #fcd34d; }
+    .callout.info { background: var(--blue-light); border: 1px solid #bfdbfe; }
+    .callout.limit { background: var(--red-light); border: 1px solid #fecdd3; }
+
+    /* ── EXAMPLE SCENARIOS ── */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .scenario-header {
+      background: #f7f5f2;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .scenario-icon { font-size: 18px; }
+    .scenario-title { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+    .scenario-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .badge-low { background: var(--green-light); color: var(--green); }
+    .badge-mid { background: var(--amber-light); color: var(--amber); }
+    .scenario-body { padding: 16px 18px; }
+    .scenario-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13px;
+    }
+    .scenario-row:last-child { border-bottom: none; }
+    .scenario-row .label { color: var(--text-muted); }
+    .scenario-row .value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .scenario-total {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 2px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scenario-total .label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .scenario-total .value {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--green);
+    }
+    .scenario-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── STORAGE OPTIONS ── */
+    .storage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .storage-card {
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 16px;
+      background: var(--surface);
+      text-align: center;
+    }
+    .storage-logo { font-size: 26px; margin-bottom: 8px; }
+    .storage-name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .storage-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 72px; align-self: start; }
+    .sidebar-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      background: var(--surface);
+      margin-bottom: 16px;
+    }
+    .sidebar-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .toc-item {
+      display: block;
+      text-decoration: none;
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border-light);
+      transition: color 0.15s;
+    }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-item:hover { color: var(--green); }
+
+    .quick-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .quick-stat:last-child { border-bottom: none; }
+    .qs-label { font-size: 12.5px; color: var(--text-muted); }
+    .qs-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .qs-value.green { color: var(--green); }
+
+    /* ── CRAFTMVP PROMO ── */
+    .craftmvp-banner {
+      background: linear-gradient(135deg, #0a1628 0%, #0d2b1e 100%);
+      border-radius: 10px;
+      padding: 36px 40px;
+      margin: 40px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .craftmvp-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: var(--green-accent);
+      opacity: 0.04;
+      border-radius: 50%;
+    }
+    .craftmvp-site {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .craftmvp-site span { color: var(--green-accent); }
+    .craftmvp-tagline {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .craftmvp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--green-accent);
+      text-decoration: none;
+      border: 1px solid rgba(0,237,100,0.3);
+      padding: 9px 18px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .craftmvp-link:hover { background: rgba(0,237,100,0.08); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-brand {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .footer-brand span { color: var(--green); }
+    .footer-sub { font-size: 12.5px; color: var(--text-muted); }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border-light);
+      margin: 36px 0;
+    }
+
+    /* ── CODE INLINE ── */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 860px) {
+      .post-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .scenario-grid { grid-template-columns: 1fr; }
+      .storage-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .storage-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    craft<span>mvp</span>.in
+  </a>
+  <span class="nav-pill">
+    <a href="/blogs" style="text-decoration:none; color:inherit;">Guides &amp; Tutorials</a>
+  </span>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- POST HEADER -->
+  <div class="post-header">
+    <div class="category-tag">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+      Database Pricing
+    </div>
+    <h1 class="post-title">MongoDB Atlas Pricing Explained:<br>Free, Flex &amp; Dedicated</h1>
+    <p class="post-subtitle">A practical breakdown of all three MongoDB Atlas plans — with real usage examples, cost estimates, and tips on how to stay within budget while building your next product.</p>
+    <div class="post-meta">
+      <span class="meta-item">craftmvp.in</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-item">March 2025</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-item">6 min read</span>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="post-layout">
+
+    <!-- CONTENT -->
+    <main class="post-content">
+      
+      <!-- HERO IMAGE INJECTED HERE -->
+      <img src="/blogs/mongodb_pricing_hero.png" alt="MongoDB Pricing Hero" style="width:100%; height:auto; border-radius:12px; margin-bottom: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);" />
+
+      <h2>The Three Plans at a Glance</h2>
+      <p>MongoDB Atlas comes in three tiers designed to match different stages of development — from your weekend side project to a production app serving thousands of users. Here's what each plan actually gives you.</p>
+
+      <div class="plan-grid">
+        <div class="plan-card">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">$<span>0</span></div>
+          <div class="plan-price-note">Forever free</div>
+          <hr class="plan-divider">
+          <div class="plan-feature"><span class="check">✓</span> 512 MB storage</div>
+          <div class="plan-feature"><span class="check">✓</span> Shared RAM &amp; vCPU</div>
+          <div class="plan-feature"><span class="check">✓</span> Great for prototypes</div>
+          <div class="plan-feature"><span class="x">✗</span> No scaling</div>
+          <div class="plan-feature"><span class="x">✗</span> No custom storage</div>
+        </div>
+
+        <div class="plan-card featured">
+          <div class="featured-badge">Popular Choice</div>
+          <div class="plan-name">Flex</div>
+          <div class="plan-price"><sup>from </sup>$8</div>
+          <div class="plan-price-note">/ month (usage-based)</div>
+          <hr class="plan-divider">
+          <div class="plan-feature"><span class="check">✓</span> 5 GB storage (fixed)</div>
+          <div class="plan-feature"><span class="check">✓</span> Shared RAM &amp; vCPU</div>
+          <div class="plan-feature"><span class="check">✓</span> $0.011 / hour base</div>
+          <div class="plan-feature"><span class="check">✓</span> Scales with ops/sec</div>
+          <div class="plan-feature"><span class="x">✗</span> Storage not upgradable</div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-name">Dedicated</div>
+          <div class="plan-price"><sup>from </sup>$57</div>
+          <div class="plan-price-note">/ month (M10+)</div>
+          <hr class="plan-divider">
+          <div class="plan-feature"><span class="check">✓</span> Dedicated RAM &amp; vCPU</div>
+          <div class="plan-feature"><span class="check">✓</span> Scalable storage</div>
+          <div class="plan-feature"><span class="check">✓</span> Advanced monitoring</div>
+          <div class="plan-feature"><span class="check">✓</span> High availability</div>
+          <div class="plan-feature"><span class="check">✓</span> Production-grade SLA</div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <h2 id="free">Free Plan — 512 MB</h2>
+      <p>The Free tier gives you a shared cluster with <strong>512 MB of storage</strong>, shared RAM, and shared vCPU. It's completely free — no credit card required — and it doesn't expire.</p>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <div class="callout-body"><strong>Best for:</strong> Learning, hackathons, very early prototypes, personal projects with minimal data. Think of it as your sandbox — not production.</div>
+      </div>
+
+      <p>The 512 MB limit fills up faster than you'd expect. A few thousand user records with embedded documents, some logs, and maybe some product data — and you're already brushing the ceiling.</p>
+
+      <hr class="section-divider">
+
+      <h2 id="flex">Flex Plan — Usage-Based Pricing</h2>
+      <p>The Flex plan is MongoDB's pay-as-you-go tier. You're charged based on how many <strong>operations per second</strong> your cluster handles. The base rate is <code>$0.011/hour</code>, which roughly equals <code>$8/month</code> at idle.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body"><strong>Storage limit:</strong> Flex gives you a fixed <strong>5 GB</strong> of storage. You cannot increase this — it is a hard ceiling. If you need more, you must upgrade to a Dedicated cluster.</div>
+      </div>
+
+      <h3>Flex Pricing Tiers</h3>
+
+      <div class="pricing-table-wrap">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Ops / Second</th>
+              <th>Hourly Rate</th>
+              <th>Est. Monthly Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td>0 – 100 (Base)</td>
+              <td class="cost">$0.0110</td>
+              <td class="monthly">~$8.00</td>
+            </tr>
+            <tr>
+              <td>100 – 200</td>
+              <td class="cost">$0.0205</td>
+              <td class="monthly">~$15.00</td>
+            </tr>
+            <tr>
+              <td>200 – 300</td>
+              <td class="cost">$0.0288</td>
+              <td class="monthly">~$21.00</td>
+            </tr>
+            <tr>
+              <td>300 – 400</td>
+              <td class="cost">$0.0356</td>
+              <td class="monthly">~$26.00</td>
+            </tr>
+            <tr>
+              <td>400 – 500</td>
+              <td class="cost">$0.0411</td>
+              <td class="monthly">~$30.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Costs scale with usage. If your app mostly idles at night and spikes during business hours, you'll naturally stay at the lower tiers — making Flex quite cost-effective for early-stage apps.</p>
+
+      <hr class="section-divider">
+
+      <h2 id="examples">Real Usage Examples &amp; Cost Estimates</h2>
+      <p>Here's what Flex actually costs for two typical early-stage products. These examples are calculated based on realistic usage patterns — not 24/7 peak load.</p>
+
+      <div class="scenario-grid">
+
+        <!-- Scenario 1 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-icon">🛍️</div>
+            <div class="scenario-title">Small SaaS App</div>
+            <span class="scenario-badge badge-low">Low Usage</span>
+          </div>
+          <div class="scenario-body">
+            <div class="scenario-row">
+              <span class="label">Daily active users</span>
+              <span class="value">~200</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Active hours/day</span>
+              <span class="value">8 hrs</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Idle hours/day</span>
+              <span class="value">16 hrs</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Peak ops/sec</span>
+              <span class="value">~80–120</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Active hours rate</span>
+              <span class="value">$0.0205/hr</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Idle hours rate</span>
+              <span class="value">$0.0110/hr</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Active cost/month</span>
+              <span class="value">8h × 30d × $0.0205 ≈ $4.92</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Idle cost/month</span>
+              <span class="value">16h × 30d × $0.0110 ≈ $5.28</span>
+            </div>
+            <div class="scenario-total">
+              <span class="label">Estimated Monthly</span>
+              <span class="value">~$10</span>
+            </div>
+            <p class="scenario-note">Mostly idle nights keep costs near the base tier — great for MVPs.</p>
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div class="scenario-icon">📊</div>
+            <div class="scenario-title">Growing Startup</div>
+            <span class="scenario-badge badge-mid">Medium Usage</span>
+          </div>
+          <div class="scenario-body">
+            <div class="scenario-row">
+              <span class="label">Daily active users</span>
+              <span class="value">~1,000</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Active hours/day</span>
+              <span class="value">12 hrs</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Idle hours/day</span>
+              <span class="value">12 hrs</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Peak ops/sec</span>
+              <span class="value">~250–350</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Active hours rate</span>
+              <span class="value">$0.0356/hr</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Idle hours rate</span>
+              <span class="value">$0.0110/hr</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Active cost/month</span>
+              <span class="value">12h × 30d × $0.0356 ≈ $12.82</span>
+            </div>
+            <div class="scenario-row">
+              <span class="label">Idle cost/month</span>
+              <span class="value">12h × 30d × $0.0110 ≈ $3.96</span>
+            </div>
+            <div class="scenario-total">
+              <span class="label">Estimated Monthly</span>
+              <span class="value">~$17</span>
+            </div>
+            <p class="scenario-note">Higher ops during the day, but idle hours cushion the bill significantly.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">📌</span>
+        <div class="callout-body"><strong>Key insight:</strong> Because Flex is usage-based, apps that aren't running 24/7 at full throttle will naturally sit in lower tiers. Off-peak hours at the base rate of $0.011/hr are your best friend when budgeting.</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <h2 id="storage">Hitting the Storage Limit</h2>
+      <p>Both Free and Flex plans have hard storage limits. The Free plan offers just 512 MB, and Flex gives you a fixed 5 GB — with no option to increase it within either plan.</p>
+
+      <div class="callout limit">
+        <span class="callout-icon">🚫</span>
+        <div class="callout-body"><strong>Hard limit on Flex:</strong> 5 GB is the ceiling. MongoDB will not allow you to exceed it. If your data needs more space, you have exactly two options.</div>
+      </div>
+
+      <h3>Option 1 — Upgrade to Dedicated</h3>
+      <p>If your data volume genuinely needs to grow beyond 5 GB inside MongoDB, upgrading to a Dedicated cluster (M10 and above) gives you configurable storage, dedicated resources, and proper production guarantees.</p>
+
+      <h3>Option 2 — Use External Storage (The Smart Workaround)</h3>
+      <p>For most early-stage apps, the 5 GB MongoDB limit isn't actually the bottleneck — it's the large files like images and videos sitting in your database that are consuming space. The fix: <strong>don't store files in MongoDB at all.</strong></p>
+
+      <div class="storage-grid">
+        <div class="storage-card">
+          <div class="storage-logo">🟠</div>
+          <div class="storage-name">AWS S3</div>
+          <div class="storage-desc">Industry standard. Scales infinitely. Free tier includes 5 GB/month.</div>
+        </div>
+        <div class="storage-card">
+          <div class="storage-logo">☁️</div>
+          <div class="storage-name">Cloudinary</div>
+          <div class="storage-desc">Purpose-built for images & video. Free tier is generous. Auto-optimization built in.</div>
+        </div>
+        <div class="storage-card">
+          <div class="storage-logo">🔥</div>
+          <div class="storage-name">Firebase Storage</div>
+          <div class="storage-desc">Simple Google-backed storage. 5 GB free. Great if you're already on Firebase.</div>
+        </div>
+      </div>
+
+      <p>The pattern is simple: store only <strong>references</strong> (a URL string) in MongoDB, and keep the actual binary data in a dedicated storage service. This lets you stay on Flex for a very long time without hitting storage constraints.</p>
+
+      <hr class="section-divider">
+
+      <h2 id="summary">Which Plan Should You Pick?</h2>
+      <p>Here's the simple rule: start with Free, graduate to Flex when you're ready to accept real users, and move to Dedicated when you're generating revenue and need reliability guarantees.</p>
+
+      <div class="callout tip">
+        <span class="callout-icon">🎯</span>
+        <div class="callout-body">
+          <strong>Our recommendation for MVP builders:</strong> Start on <strong>Free</strong> while building. Switch to <strong>Flex</strong> when you launch (~$8–17/month for most early apps). Only consider <strong>Dedicated</strong> once you have paying users and need the uptime guarantees.
+        </div>
+      </div>
+
+      <!-- CraftMVP Banner -->
+      <div class="craftmvp-banner">
+        <div class="craftmvp-site">craft<span>mvp</span>.in</div>
+        <p class="craftmvp-tagline">Practical guides for indie hackers and startup builders — covering infrastructure, tools, and the technical decisions that actually matter when you're shipping fast.</p>
+        <a href="/" class="craftmvp-link">
+          Read more guides →
+        </a>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">In This Article</div>
+        <a class="toc-item" href="#free">Free Plan — 512 MB</a>
+        <a class="toc-item" href="#flex">Flex Plan Pricing</a>
+        <a class="toc-item" href="#examples">Usage Examples</a>
+        <a class="toc-item" href="#storage">Storage Limits</a>
+        <a class="toc-item" href="#summary">Which Plan to Pick</a>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Quick Reference</div>
+        <div class="quick-stat">
+          <span class="qs-label">Free storage</span>
+          <span class="qs-value">512 MB</span>
+        </div>
+        <div class="quick-stat">
+          <span class="qs-label">Flex storage</span>
+          <span class="qs-value">5 GB</span>
+        </div>
+        <div class="quick-stat">
+          <span class="qs-label">Flex base rate</span>
+          <span class="qs-value">$0.011/hr</span>
+        </div>
+        <div class="quick-stat">
+          <span class="qs-label">Flex min/month</span>
+          <span class="qs-value green">~$8</span>
+        </div>
+        <div class="quick-stat">
+          <span class="qs-label">Flex max/month</span>
+          <span class="qs-value">~$30</span>
+        </div>
+        <div class="quick-stat">
+          <span class="qs-label">Dedicated from</span>
+          <span class="qs-value">~$57/mo</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">External Storage</div>
+        <div class="plan-feature" style="margin-bottom:9px;font-size:13px;">
+          <span class="check">✓</span>
+          <span style="color:var(--text-secondary)">AWS S3 — free 5 GB</span>
+        </div>
+        <div class="plan-feature" style="margin-bottom:9px;font-size:13px;">
+          <span class="check">✓</span>
+          <span style="color:var(--text-secondary)">Cloudinary — images &amp; video</span>
+        </div>
+        <div class="plan-feature" style="margin-bottom:0;font-size:13px;">
+          <span class="check">✓</span>
+          <span style="color:var(--text-secondary)">Firebase Storage — 5 GB free</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">craft<span>mvp</span>.in</div>
+    <div class="footer-sub">Guides for builders who ship — craftmvp.in</div>
+  </div>
+</footer>
+
+</body>
+</html>

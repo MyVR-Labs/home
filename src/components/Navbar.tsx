@@ -5,10 +5,11 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#projects" },
-  { label: "Team", href: "#team" },
-  { label: "Reviews", href: "#testimonials" },
+  { label: "Services", href: "/#services" },
+  { label: "Work", href: "/#projects" },
+  { label: "Team", href: "/#team" },
+  { label: "Reviews", href: "/#testimonials" },
+  { label: "Blogs", href: "/blogs" },
 ];
 
 export default function Navbar() {
@@ -31,7 +32,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
 
         {/* Left: Logo */}
-        <a href="#home" className="flex items-center gap-2 flex-shrink-0 group">
+        <a href="/" className="flex items-center gap-2 flex-shrink-0 group">
           <Image src="/logo.svg" alt="CraftMVP Logo" width={92} height={92} className="object-contain" />
           <span className={`text-[16px] font-bold tracking-tight hidden sm:inline ${scrolled ? 'text-white' : 'text-ink-950'}`}>
             CraftMVP

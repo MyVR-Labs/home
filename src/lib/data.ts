@@ -94,7 +94,20 @@ export const testimonials = [
     name: "Amit D.",
     company: "Prime Gyms",
     role: "Manager",
-    message: "Automating billing and WhatsApp notifications reduced our administrative work by half.",
     rating: 5
+  }
+];
+
+export const blogs = [
+  {
+    id: "mongodb-atlas-pricing",
+    title: "MongoDB Atlas Pricing Explained: Free, Flex & Dedicated",
+    excerpt: "A practical breakdown of all three MongoDB Atlas plans — with real usage examples, cost estimates, and tips on how to stay within budget while building your next product.",
+    date: "March 2025",
+    author: "CraftMVP",
+    image: "/blogs/mongodb_pricing_hero.png",
+    tags: ["Database Pricing"],
+    isHtml: true,
+    htmlUrl: "/blogs/mongodb-atlas-pricing.html"
   }
 ];
