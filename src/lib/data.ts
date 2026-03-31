@@ -98,6 +98,7 @@ export const testimonials = [
   }
 ];
 
+
 export const blogs = [
   {
     id: "mongodb-atlas-pricing",
@@ -109,5 +110,16 @@ export const blogs = [
     tags: ["Database Pricing"],
     isHtml: true,
     htmlUrl: "/blogs/mongodb-atlas-pricing.html"
+  },
+  {
+    id: "postgres-vm-guide",
+    title: "PostgreSQL VM Guide: Run Your Own Database for Free & Scale Smart",
+    excerpt: "Learn how to set up PostgreSQL on a virtual machine, reduce database costs, and scale efficiently. A practical guide for startups looking to move beyond managed pricing limits.",
+    date: "March 2026",
+    author: "CraftMVP",
+    image: "/blogs/postgres_vm_hero.png",
+    tags: ["PostgreSQL", "DevOps", "Cost Optimization"],
+    isHtml: true,
+    htmlUrl: "/blogs/craftmvp-postgres-vm-guide.html"
   }
 ];
