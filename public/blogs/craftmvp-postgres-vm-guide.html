@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run PostgreSQL on a VM in 2025 — The Complete Pricing Guide | CraftMVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:        #ffffff;
+      --bg:           #f5f5f7;
+      --surface:      #ffffff;
+      --border:       #d2d2d7;
+      --text:         #1d1d1f;
+      --muted:        #6e6e73;
+      --soft:         #f5f5f7;
+      --accent:       #0071e3;
+      --accent-light: #e8f0fb;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-tag {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.2px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 580px;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .meta-pill {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .section h2 {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    .section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin: 36px 0 12px;
+      color: var(--text);
+    }
+    .section p {
+      font-size: 15.5px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.75;
+    }
+    .section p strong { color: var(--text); font-weight: 600; }
+    .section ul, .section ol {
+      padding-left: 20px;
+      margin-bottom: 14px;
+    }
+    .section li {
+      font-size: 15.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      line-height: 1.7;
+    }
+    .section li strong { color: var(--text); font-weight: 600; }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-top: 8px;
+    }
+    .toc-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .toc ol {
+      list-style: none;
+      padding: 0;
+      counter-reset: toc;
+    }
+    .toc li {
+      counter-increment: toc;
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .toc li:last-child { border-bottom: none; }
+    .toc li::before {
+      content: counter(toc, decimal-leading-zero);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 22px;
+      font-variant-numeric: tabular-nums;
+    }
+    .toc a {
+      font-size: 14.5px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 400;
+    }
+    .toc a:hover { color: var(--accent); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 22px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .callout-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .callout-body { flex: 1; }
+    .callout-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .callout-text {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .callout-text strong { color: var(--text); font-weight: 600; }
+    .callout-info  { background: var(--accent-light); border: 1px solid #c2d8f5; }
+    .callout-note  { background: var(--soft); border: 1px solid var(--border); }
+    .callout-warn  { background: #fef9ec; border: 1px solid #e8d8a0; }
+    .callout-good  { background: #f0faf4; border: 1px solid #b6dfc8; }
+
+    /* ── TERM GRID ── */
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .term-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .term-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-family: ui-monospace, 'SF Mono', monospace;
+    }
+    .term-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── TIER LABEL ROW ── */
+    .tier-label-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 40px 0 14px;
+    }
+    .tier-index {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      font-family: ui-monospace, 'SF Mono', monospace;
+    }
+    .tier-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      flex: 1;
+    }
+    .tier-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid #c2d8f5;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    /* ── PROVIDER CARD ── */
+    .provider-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .card-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .card-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+    .card-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+    .card-price { text-align: right; flex-shrink: 0; }
+    .card-price-main {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .card-price-sub { font-size: 12px; color: var(--muted); }
+
+    /* ── SPECS TABLE ── */
+    .specs-table { width: 100%; border-collapse: collapse; }
+    .specs-table th {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      padding: 10px 22px;
+      text-align: left;
+      background: var(--soft);
+      border-bottom: 1px solid var(--border);
+    }
+    .specs-table td {
+      font-size: 14px;
+      padding: 11px 22px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    .specs-table tr:last-child td { border-bottom: none; }
+    .specs-table .g { color: #248a3d; font-weight: 500; }
+    .specs-table .a { color: #b25000; font-weight: 500; }
+    .specs-table .m { color: var(--muted); }
+    .specs-table .b { color: var(--accent); font-weight: 500; }
+
+    /* ── PRICE ROW ── */
+    .price-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--border);
+    }
+    .price-cell { padding: 16px 22px; }
+    .price-cell:first-child { border-right: 1px solid var(--border); }
+    .price-cell-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .price-cell-val {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+    .price-cell-note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── BEST FOR ROW ── */
+    .best-for-row {
+      padding: 13px 22px;
+      border-top: 1px solid var(--border);
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .best-for-row strong { color: var(--text); font-weight: 600; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+    .full-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 580px;
+      background: var(--surface);
+    }
+    .full-table thead tr { background: var(--soft); }
+    .full-table th {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      padding: 11px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .full-table td {
+      font-size: 13.5px;
+      padding: 11px 16px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .full-table tr:last-child td { border-bottom: none; }
+    .full-table tr:hover td { background: var(--soft); transition: background 0.1s; }
+    .full-table .g { color: #248a3d; font-weight: 600; }
+    .full-table .a { color: #b25000; font-weight: 600; }
+    .full-table .r { color: #c0392b; font-weight: 600; }
+    .full-table .b { color: var(--accent); font-weight: 600; }
+    .full-table .m { color: var(--muted); font-size: 12.5px; }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: #1d1d1f;
+      border-radius: 12px;
+      padding: 20px 22px;
+      font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      color: #e0e0e5;
+      overflow-x: auto;
+      line-height: 1.85;
+      margin: 20px 0;
+    }
+    .code-block .cm  { color: #636366; }
+    .code-block .cmd { color: #30d158; }
+    .code-block .str { color: #ffd60a; }
+    .code-block .kw  { color: #64d2ff; }
+
+    /* ── STEP LIST ── */
+    .step-list { margin: 24px 0; }
+    .step-item {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .step-item:last-child { border-bottom: none; }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--text);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+      letter-spacing: -0.2px;
+    }
+    .step-content p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── REALITY BOX ── */
+    .reality-box {
+      background: #fff8f6;
+      border: 1px solid #e8c4b8;
+      border-radius: 14px;
+      padding: 24px;
+      margin: 28px 0;
+    }
+    .reality-box h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.2px;
+    }
+    .reality-box p {
+      font-size: 14.5px;
+      color: #7a4a3a;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    .reality-box p:last-child { margin-bottom: 0; }
+    .reality-box p strong { color: var(--text); }
+
+    /* ── CTA ── */
+    .cta-block {
+      background: var(--text);
+      border-radius: 18px;
+      padding: 44px 36px;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .cta-block p {
+      font-size: 15px;
+      color: #888;
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 26px;
+      border-radius: 980px;
+      text-decoration: none;
+      letter-spacing: -0.2px;
+      transition: opacity 0.15s;
+    }
+    .cta-btn:hover { opacity: 0.85; }
+    .cta-sec {
+      display: inline-block;
+      margin-left: 18px;
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+    }
+    .cta-sec:hover { color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    footer p { font-size: 13px; color: var(--muted); line-height: 1.7; padding: 0 24px; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .wrap { padding: 0 18px; }
+      .price-row { grid-template-columns: 1fr; }
+      .price-cell:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .term-grid { grid-template-columns: 1fr 1fr; }
+      .cta-sec { display: block; margin: 14px 0 0; }
+      .cta-block { padding: 32px 20px; }
+      .tier-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://craftmvp.in" class="nav-logo">Craft<span>MVP</span></a>
+  <span class="nav-tag">Infrastructure Guide · March 2025</span>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">PostgreSQL on Virtual Machines</div>
+    <h1>From ₹0 to Production —<br/>The Complete VM Guide</h1>
+    <p class="hero-sub">A clear, no-fluff pricing breakdown for Indian developers. Every major provider compared with real costs in ₹ and $, Month 1 vs. ongoing — explained for beginners and intermediates.</p>
+    <div class="hero-meta">
+      <span class="meta-pill">📍 India-focused</span>
+      <span class="meta-pill">🗓 March 2025</span>
+      <span class="meta-pill">🎓 Beginner to Intermediate</span>
+      <span class="meta-pill">🐘 PostgreSQL 16</span>
+      <span class="meta-pill">💱 ₹84 = $1 USD</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="section" id="toc">
+    <div class="section-label">Contents</div>
+    <div class="toc">
+      <div class="toc-label">What's inside this guide</div>
+      <ol>
+        <li><a href="#what-is-postgres">What is PostgreSQL and why run it on a VM?</a></li>
+        <li><a href="#key-terms">Key terms you need to know first</a></li>
+        <li><a href="#tier-free">Tier 1 — Completely Free: Oracle Cloud Always Free</a></li>
+        <li><a href="#tier-budget">Tier 2 — Budget Plans (₹373–₹1,000/mo)</a></li>
+        <li><a href="#tier-mid">Tier 3 — Mid-range Plans (₹1,000–₹3,000/mo)</a></li>
+        <li><a href="#tier-prod">Tier 4 — Production-Ready (₹3,000+/mo)</a></li>
+        <li><a href="#comparison">Full comparison table — all providers</a></li>
+        <li><a href="#india-vs-foreign">India vs. Foreign servers — what actually matters</a></li>
+        <li><a href="#postgres-setup">How to run PostgreSQL on your VM</a></li>
+        <li><a href="#reality-check">The pricing reality check</a></li>
+        <li><a href="#recommendation">Which one should you pick?</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="what-is-postgres">
+    <div class="section-label">Section 01</div>
+    <h2>What is PostgreSQL, and why run it on a VM?</h2>
+    <p>PostgreSQL — everyone calls it "Postgres" — is a <strong>free, open-source relational database</strong>. A relational database stores data in rows and columns, like a very powerful spreadsheet that your application can read and write to in milliseconds.</p>
+    <p>Think of it this way: your app is a restaurant. The VM (Virtual Machine) is the kitchen. PostgreSQL is the chef who organises and serves all your food — your data. Without the chef, no one eats.</p>
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body">
+        <div class="callout-title">Beginner tip — what is a VM?</div>
+        <div class="callout-text">A <strong>VM (Virtual Machine)</strong> is a computer that lives in someone else's data centre. You rent it monthly. It runs 24/7 even when your laptop is off. You connect to it over SSH — a secure terminal. PostgreSQL runs on it as a background service.</div>
+      </div>
+    </div>
+    <p>You have two ways to run Postgres in the cloud:</p>
+    <ol>
+      <li><strong>Managed Database</strong> — e.g. Supabase, AWS RDS, DigitalOcean Managed DB. Zero server management. But 5–10× more expensive for the same specs.</li>
+      <li><strong>Self-hosted on a VM</strong> — You install Postgres yourself on a rented server. Cheaper. Full control. Requires basic Linux knowledge. This entire guide is about this option.</li>
+    </ol>
+    <p>If you're building an MVP, a startup, or a side project — <strong>self-hosting on a VM is the right call</strong>. You save 5–10× versus managed databases at equivalent specs.</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="key-terms">
+    <div class="section-label">Section 02</div>
+    <h2>Key terms before we dive into pricing</h2>
+    <p>Before any pricing table makes sense, here's a quick glossary of what you're comparing.</p>
+    <div class="term-grid">
+      <div class="term-card">
+        <div class="term-title">vCPU</div>
+        <div class="term-desc">Virtual CPU core — the "brain speed" of your server. More cores = handles more tasks at once. 1 for dev/testing, 2+ for production.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">RAM</div>
+        <div class="term-desc">Memory the server uses while running. Postgres caches data in RAM for fast reads. 1–2 GB for small apps, 4+ GB for real workloads.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">SSD / NVMe</div>
+        <div class="term-desc">Storage for your database files. NVMe is faster than SSD. For Postgres, faster storage = faster queries. Prefer NVMe when available.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">Bandwidth</div>
+        <div class="term-desc">How much data your server can send per month. Most small apps use under 100 GB/month. 1 TB is generous for starters.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">KVM / ARM</div>
+        <div class="term-desc">KVM = standard virtualisation (runs all normal Linux software). ARM = different processor architecture — cheaper but needs minor setup adjustments.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">SSH</div>
+        <div class="term-desc">Secure Shell — how you log in to your VM from a terminal. Like a remote control for your server. You'll use this daily.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">Shared vCPU</div>
+        <div class="term-desc">CPU cores shared with other customers. Fine for low traffic. Under heavy load, performance can vary unpredictably.</div>
+      </div>
+      <div class="term-card">
+        <div class="term-title">Dedicated vCPU</div>
+        <div class="term-desc">CPU cores reserved only for you. Consistent, predictable performance. Costs more — essential for database servers in production.</div>
+      </div>
+    </div>
+    <div class="callout callout-note">
+      <span class="callout-icon">📐</span>
+      <div class="callout-body">
+        <div class="callout-title">Rule of thumb for PostgreSQL memory</div>
+        <div class="callout-text">Postgres uses ~25% of your RAM as <code>shared_buffers</code> by default. On a 2 GB server that's 500 MB. Fine for small apps. For anything with 1,000+ daily users, get at least 4 GB RAM.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 — FREE -->
+  <div class="section" id="tier-free">
+    <div class="section-label">Section 03</div>
+    <h2>Tier 1 — Completely Free: Oracle Cloud Always Free</h2>
+    <p>Yes, you can run PostgreSQL completely free — forever. Oracle Cloud's "Always Free" tier is the <strong>most generous free cloud offering available in 2025</strong>. No expiry. No credit card charges after signup.</p>
+
+    <div class="tier-label-row">
+      <span class="tier-index">01</span>
+      <span class="tier-title">Oracle Cloud Infrastructure (OCI)</span>
+      <span class="tier-badge">Free Forever</span>
+    </div>
+    <div class="provider-card">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Oracle Cloud — Always Free Tier</div>
+          <div class="card-sub">Ampere A1 ARM · Lifetime, no expiry · Mumbai &amp; Hyderabad regions</div>
+        </div>
+        <div class="card-price">
+          <div class="card-price-main">₹0</div>
+          <div class="card-price-sub">forever</div>
+        </div>
+      </div>
+      <table class="specs-table">
+        <thead>
+          <tr><th>Spec</th><th>What You Get</th><th>Good for Postgres?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CPU</td><td>4 Ampere A1 ARM cores (3.0 GHz)</td><td class="g">✓ Excellent</td></tr>
+          <tr><td>RAM</td><td>24 GB</td><td class="g">✓ Outstanding</td></tr>
+          <tr><td>Storage</td><td>200 GB Block Storage (split across VMs)</td><td class="g">✓ Plenty</td></tr>
+          <tr><td>Bandwidth</td><td>10 TB outbound / month</td><td class="g">✓ Extremely generous</td></tr>
+          <tr><td>OS Support</td><td>Ubuntu 22.04, Oracle Linux, CentOS</td><td class="g">✓ Yes</td></tr>
+          <tr><td>Architecture</td><td>ARM (Ampere Altra)</td><td class="a">⚠ Minor quirks for some packages</td></tr>
+          <tr><td>India Region</td><td>Mumbai + Hyderabad</td><td class="g">✓ Low latency in India</td></tr>
+          <tr><td>Bonus VMs</td><td>2× AMD VMs (1/8 OCPU, 1 GB RAM each)</td><td class="m">Use for monitoring / proxy</td></tr>
+        </tbody>
+      </table>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="price-cell-label">Month 1</div>
+          <div class="price-cell-val">₹0 / $0</div>
+          <div class="price-cell-note">Includes $300 trial credit for paid services</div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Month 2 onwards</div>
+          <div class="price-cell-val">₹0 / $0</div>
+          <div class="price-cell-note">No renewal. No hidden charges. Truly always free.</div>
+        </div>
+      </div>
+      <div class="best-for-row"><strong>Best for:</strong> MVPs, learning, side projects, solo developers, small startups with under 500 daily users.</div>
+    </div>
+
+    <div class="callout callout-warn">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body">
+        <div class="callout-title">Three caveats about Oracle Always Free</div>
+        <div class="callout-text">
+          <strong>1. ARM processor:</strong> Postgres installs fine on ARM Ubuntu. Some obscure extensions may lack ARM builds, but 90% of use cases have zero issues.<br/><br/>
+          <strong>2. Signup:</strong> Oracle requires a credit card to verify identity but won't charge it unless you explicitly upgrade. Some Indian cards get declined — try a Visa debit or virtual card.<br/><br/>
+          <strong>3. Availability:</strong> Free ARM instances can show "Out of Capacity" in popular regions. Try at off-peak hours or a different region.
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-good">
+      <span class="callout-icon">✓</span>
+      <div class="callout-body">
+        <div class="callout-title">The verdict</div>
+        <div class="callout-text">4 vCPUs, 24 GB RAM, 200 GB storage, 10 TB bandwidth — all free, forever. This is better hardware than most paid plans under ₹2,000/month. <strong>If you can get an account, start here.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 — BUDGET -->
+  <div class="section" id="tier-budget">
+    <div class="section-label">Section 04</div>
+    <h2>Tier 2 — Budget Plans (₹373–₹1,000/mo)</h2>
+    <p>If you need a standard x86 server or want simpler India-based billing in INR, these providers are your next stop. Watch closely — many have <strong>promotional first-month pricing that increases significantly at renewal</strong>.</p>
+
+    <div class="tier-label-row">
+      <span class="tier-index">02</span>
+      <span class="tier-title">Hostinger KVM VPS — India</span>
+      <span class="tier-badge">Budget · INR Billing</span>
+    </div>
+    <div class="provider-card">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Hostinger KVM VPS (KVM 1 &amp; KVM 2)</div>
+          <div class="card-sub">India data centre · KVM virtualisation · NVMe SSD · AMD EPYC · INR billing</div>
+        </div>
+        <div class="card-price">
+          <div class="card-price-main">₹373</div>
+          <div class="card-price-sub">promo/mo (24-mo plan)</div>
+        </div>
+      </div>
+      <table class="specs-table">
+        <thead><tr><th>Spec</th><th>KVM 1</th><th>KVM 2</th></tr></thead>
+        <tbody>
+          <tr><td>vCPU</td><td>1 vCPU (AMD EPYC)</td><td>2 vCPU</td></tr>
+          <tr><td>RAM</td><td>4 GB</td><td>8 GB</td></tr>
+          <tr><td>Storage</td><td>50 GB NVMe SSD</td><td>100 GB NVMe SSD</td></tr>
+          <tr><td>Bandwidth</td><td>4 TB / month</td><td>8 TB / month</td></tr>
+          <tr><td>Architecture</td><td class="g">x86 KVM (standard)</td><td class="g">x86 KVM</td></tr>
+          <tr><td>India server</td><td class="g">✓ Available</td><td class="g">✓ Available</td></tr>
+          <tr><td>Backups</td><td>Weekly (free)</td><td>Weekly (free)</td></tr>
+        </tbody>
+      </table>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="price-cell-label">Month 1 (promo, 24-mo plan)</div>
+          <div class="price-cell-val">KVM 1: ₹373 / ~$4.50</div>
+          <div class="price-cell-note">KVM 2: ₹522 / ~$6.30 · paid upfront for 24 months</div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Renewal Rate (after plan ends)</div>
+          <div class="price-cell-val">KVM 1: ₹449–599</div>
+          <div class="price-cell-note">KVM 2: ₹650–850 · ~60% jump at renewal — plan for this</div>
+        </div>
+      </div>
+      <div class="best-for-row"><strong>Best for:</strong> Indian-market apps, agencies running client MVPs, budget founders who want India-region servers with fixed INR billing.</div>
+    </div>
+
+    <div class="tier-label-row">
+      <span class="tier-index">03</span>
+      <span class="tier-title">Vultr Cloud Compute — Foreign</span>
+      <span class="tier-badge">Budget · USD · Flat Pricing</span>
+    </div>
+    <div class="provider-card">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Vultr — High Performance Cloud Compute</div>
+          <div class="card-sub">No India data centre · Nearest: Singapore · Hourly billing · AMD EPYC + NVMe · No promo pricing — flat rate</div>
+        </div>
+        <div class="card-price">
+          <div class="card-price-main">$6</div>
+          <div class="card-price-sub">~₹515/month</div>
+        </div>
+      </div>
+      <table class="specs-table">
+        <thead><tr><th>Plan</th><th>Specs</th><th>USD/mo</th><th>~INR/mo</th></tr></thead>
+        <tbody>
+          <tr><td>Starter</td><td>1 vCPU, 1 GB RAM, 25 GB SSD, 1 TB BW</td><td class="b">$6</td><td class="b">~₹515</td></tr>
+          <tr><td>Basic</td><td>1 vCPU, 2 GB RAM, 55 GB NVMe, 2 TB BW</td><td class="b">$12</td><td class="b">~₹1,030</td></tr>
+          <tr><td>Standard</td><td>2 vCPU, 4 GB RAM, 80 GB NVMe, 3 TB BW</td><td class="b">$24</td><td class="b">~₹2,060</td></tr>
+          <tr><td>Mid</td><td>4 vCPU, 8 GB RAM, 160 GB NVMe, 4 TB BW</td><td class="b">$48</td><td class="b">~₹4,120</td></tr>
+        </tbody>
+      </table>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="price-cell-label">Month 1</div>
+          <div class="price-cell-val">$6 / ₹515</div>
+          <div class="price-cell-note">No promotions — what you see is what you pay</div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Month 2 onwards</div>
+          <div class="price-cell-val">Same price — no hike</div>
+          <div class="price-cell-note">Only variable: USD/INR forex rate. Budget accordingly.</div>
+        </div>
+      </div>
+      <div class="best-for-row"><strong>Best for:</strong> Developers who value transparent USD billing with no renewal surprises. Global apps where Singapore latency (~60 ms from India) is acceptable.</div>
+    </div>
+
+    <div class="callout callout-note">
+      <span class="callout-icon">💱</span>
+      <div class="callout-body">
+        <div class="callout-title">INR-USD note for Indian users</div>
+        <div class="callout-text">When you pay in USD from India, your bank converts at the current rate plus typically 2–4% forex markup. At ₹84/$, a $6 plan costs roughly ₹510–520 after markup. Always factor this in when comparing USD vs. INR plans.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 — MID -->
+  <div class="section" id="tier-mid">
+    <div class="section-label">Section 05</div>
+    <h2>Tier 3 — Mid-range Plans (₹1,000–₹3,000/mo)</h2>
+    <p>This tier gives you better specs and more reliable performance, suitable for apps with real users — roughly 100–2,000 daily active users with a moderately complex database.</p>
+
+    <div class="tier-label-row">
+      <span class="tier-index">04</span>
+      <span class="tier-title">DigitalOcean Droplets — Bangalore</span>
+      <span class="tier-badge">Mid-range · India DC</span>
+    </div>
+    <div class="provider-card">
+      <div class="card-header">
+        <div>
+          <div class="card-name">DigitalOcean — Basic &amp; General Purpose Droplets</div>
+          <div class="card-sub">Bangalore data centre ✓ · Per-second billing · $200 free credit for new accounts (60 days) · Flat rate, no renewal hike</div>
+        </div>
+        <div class="card-price">
+          <div class="card-price-main">$6</div>
+          <div class="card-price-sub">~₹505/month</div>
+        </div>
+      </div>
+      <table class="specs-table">
+        <thead><tr><th>Plan</th><th>Specs</th><th>USD/mo</th><th>~INR/mo</th><th>Postgres fit</th></tr></thead>
+        <tbody>
+          <tr><td>Basic S1</td><td>1 vCPU, 1 GB RAM, 25 GB SSD, 1 TB</td><td class="b">$6</td><td class="b">~₹505</td><td class="m">Dev / Test only</td></tr>
+          <tr><td>Basic S2</td><td>1 vCPU, 2 GB RAM, 50 GB SSD, 2 TB</td><td class="b">$12</td><td class="b">~₹1,010</td><td class="a">Small apps</td></tr>
+          <tr><td>Basic S3</td><td>2 vCPU, 4 GB RAM, 80 GB SSD, 4 TB</td><td class="b">$24</td><td class="b">~₹2,015</td><td class="g">✓ Good</td></tr>
+          <tr><td>General Purpose</td><td>2 vCPU, 8 GB RAM, 25 GB NVMe, 4 TB</td><td class="b">$63</td><td class="b">~₹5,290</td><td class="g">✓ Production</td></tr>
+        </tbody>
+      </table>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="price-cell-label">Month 1–2 (new accounts)</div>
+          <div class="price-cell-val">$200 free credit</div>
+          <div class="price-cell-note">Covers ~2 months of a $24/mo Droplet at zero cost</div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Month 3 onwards</div>
+          <div class="price-cell-val">$6–$63 / ₹505–₹5,290</div>
+          <div class="price-cell-note">No renewal hike. Backups cost 20% extra of Droplet price.</div>
+        </div>
+      </div>
+      <div class="best-for-row"><strong>Best for:</strong> Startups serving Indian users (Bangalore DC), developers who value DigitalOcean's documentation, apps that may need to scale over time.</div>
+    </div>
+
+    <div class="tier-label-row">
+      <span class="tier-index">05</span>
+      <span class="tier-title">AWS Lightsail — Mumbai</span>
+      <span class="tier-badge">Mid-range · India DC</span>
+    </div>
+    <div class="provider-card">
+      <div class="card-header">
+        <div>
+          <div class="card-name">Amazon AWS Lightsail</div>
+          <div class="card-sub">Mumbai data centre ✓ · 3 months free on select plans for new accounts · Simple flat pricing, unlike full EC2</div>
+        </div>
+        <div class="card-price">
+          <div class="card-price-main">$3.50</div>
+          <div class="card-price-sub">~₹295/month</div>
+        </div>
+      </div>
+      <table class="specs-table">
+        <thead><tr><th>Plan</th><th>Specs</th><th>USD/mo</th><th>~INR/mo</th><th>Postgres fit</th></tr></thead>
+        <tbody>
+          <tr><td>Nano</td><td>2 vCPU, 512 MB RAM, 20 GB SSD, 1 TB</td><td class="b">$3.50</td><td class="b">~₹295</td><td class="m">✗ Too little RAM</td></tr>
+          <tr><td>Micro</td><td>2 vCPU, 1 GB RAM, 40 GB SSD, 2 TB</td><td class="b">$5</td><td class="b">~₹420</td><td class="a">Dev only</td></tr>
+          <tr><td>Small</td><td>2 vCPU, 2 GB RAM, 60 GB SSD, 3 TB</td><td class="b">$10</td><td class="b">~₹840</td><td class="a">Small apps</td></tr>
+          <tr><td>Medium</td><td>2 vCPU, 4 GB RAM, 80 GB SSD, 4 TB</td><td class="b">$20</td><td class="b">~₹1,680</td><td class="g">✓ Recommended</td></tr>
+          <tr><td>Large</td><td>2 vCPU, 8 GB RAM, 160 GB SSD, 5 TB</td><td class="b">$40</td><td class="b">~₹3,360</td><td class="g">✓ Production</td></tr>
+        </tbody>
+      </table>
+      <div class="price-row">
+        <div class="price-cell">
+          <div class="price-cell-label">Month 1–3 (new accounts)</div>
+          <div class="price-cell-val">Free for 3 months</div>
+          <div class="price-cell-note">Applies to the $5 and $7 Micro/Small plans for new accounts</div>
+        </div>
+        <div class="price-cell">
+          <div class="price-cell-label">Month 4 onwards</div>
+          <div class="price-cell-val">$5–$40 / ₹420–₹3,360</div>
+          <div class="price-cell-note">No renewal hike. Data beyond quota billed at $0.09/GB.</div>
+        </div>
+      </div>
+      <div class="best-for-row"><strong>Best for:</strong> Founders wanting AWS reliability + Mumbai region for Indian users, without full EC2 complexity. Good if you plan to grow into the AWS ecosystem.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 6 — PRODUCTION -->
+  <div class="section" id="tier-prod">
+    <div class="section-label">Section 06</div>
+    <h2>Tier 4 — Production-Ready Plans (₹3,000+/mo)</h2>
+    <p>When your app has real revenue, real users, or can't tolerate downtime — this is where you need to be. Dedicated CPUs, NVMe storage, higher RAM, and proper SLAs.</p>
+    <div class="table-wrap">
+      <table class="full-table">
+        <thead>
+          <tr><th>Provider</th><th>Plan</th><th>CPU</th><th>RAM</th><th>Storage</th><th>USD/mo</th><th>~INR/mo</th><th>India DC?</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Hostinger</strong></td><td>KVM 4</td><td>8 vCPU</td><td>16 GB</td><td>200 GB NVMe</td><td class="b">~$22</td><td class="b">~₹1,850</td><td class="g">✓ Yes</td></tr>
+          <tr><td><strong>Hostinger</strong></td><td>KVM 8</td><td>8 vCPU</td><td>32 GB</td><td>400 GB NVMe</td><td class="b">~$45</td><td class="b">~₹3,780</td><td class="g">✓ Yes</td></tr>
+          <tr><td><strong>DigitalOcean</strong></td><td>CPU-Optimized 2×</td><td>2 vCPU ded.</td><td>4 GB</td><td>25 GB NVMe</td><td class="b">$42</td><td class="b">~₹3,530</td><td class="g">✓ Bangalore</td></tr>
+          <tr><td><strong>DigitalOcean</strong></td><td>Mem-Optimized</td><td>2 vCPU ded.</td><td>16 GB</td><td>50 GB NVMe</td><td class="b">$84</td><td class="b">~₹7,060</td><td class="g">✓ Bangalore</td></tr>
+          <tr><td><strong>AWS Lightsail</strong></td><td>XLarge</td><td>4 vCPU</td><td>16 GB</td><td>320 GB SSD</td><td class="b">$80</td><td class="b">~₹6,720</td><td class="g">✓ Mumbai</td></tr>
+          <tr><td><strong>Vultr High-Freq</strong></td><td>4 vCPU plan</td><td>4 vCPU ded.</td><td>8 GB</td><td>160 GB NVMe</td><td class="b">$48</td><td class="b">~₹4,030</td><td class="r">✗ Singapore nearest</td></tr>
+          <tr><td><strong>Oracle OCI Paid</strong></td><td>ARM VM</td><td>8 OCPU ARM</td><td>48 GB</td><td>200 GB block</td><td class="b">~$35</td><td class="b">~₹2,940</td><td class="g">✓ Mumbai / Hyderabad</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">📌</span>
+      <div class="callout-body">
+        <div class="callout-title">Production PostgreSQL tip</div>
+        <div class="callout-text">For production: minimum 2 dedicated vCPUs and 4 GB RAM. Set <code>shared_buffers</code> to 25% of RAM, enable WAL archiving for backups, and set up daily automated snapshots. Ideally, run Postgres on a separate VM from your application server.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7 — COMPARISON -->
+  <div class="section" id="comparison">
+    <div class="section-label">Section 07</div>
+    <h2>Full comparison table — all providers</h2>
+    <p>Every provider, entry plan, first-month cost, renewal cost, and India availability. All INR calculated at <strong>₹84 = $1 USD (March 2025)</strong> + ~3% forex markup for foreign providers.</p>
+    <div class="table-wrap">
+      <table class="full-table">
+        <thead>
+          <tr><th>Provider</th><th>Entry Specs</th><th>Month 1 ₹</th><th>Month 1 $</th><th>Month 2+ ₹</th><th>Month 2+ $</th><th>India DC</th><th>Promo Risk</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Oracle Always Free</strong></td><td>4 vCPU ARM, 24 GB, 200 GB, 10 TB</td><td class="g">₹0</td><td class="g">$0</td><td class="g">₹0</td><td class="g">$0</td><td class="g">✓ Mumbai</td><td class="g">None</td></tr>
+          <tr><td><strong>Hostinger KVM 1</strong></td><td>1 vCPU, 4 GB, 50 GB NVMe, 4 TB</td><td class="g">₹373</td><td class="g">~$4.50</td><td class="a">₹449–599</td><td class="a">~$8–9</td><td class="g">✓ Yes</td><td class="a">Renewal hike</td></tr>
+          <tr><td><strong>Hostinger KVM 2</strong></td><td>2 vCPU, 8 GB, 100 GB NVMe, 8 TB</td><td class="g">₹522</td><td class="g">~$6.30</td><td class="a">₹650–850</td><td class="a">~$10–11</td><td class="g">✓ Yes</td><td class="a">Renewal hike</td></tr>
+          <tr><td><strong>Vultr Starter</strong></td><td>1 vCPU, 1 GB, 25 GB SSD, 1 TB</td><td class="b">₹515</td><td class="b">$6</td><td class="g">₹515</td><td class="g">$6</td><td class="r">✗ Singapore</td><td class="g">None — flat</td></tr>
+          <tr><td><strong>Vultr Basic</strong></td><td>1 vCPU, 2 GB, 55 GB NVMe, 2 TB</td><td class="b">₹1,030</td><td class="b">$12</td><td class="g">₹1,030</td><td class="g">$12</td><td class="r">✗ Singapore</td><td class="g">None</td></tr>
+          <tr><td><strong>DigitalOcean S2</strong></td><td>1 vCPU, 2 GB, 50 GB SSD, 2 TB</td><td class="g">$200 credit</td><td class="g">Covered</td><td class="b">₹1,010</td><td class="b">$12</td><td class="g">✓ Bangalore</td><td class="g">None after credit</td></tr>
+          <tr><td><strong>DigitalOcean S3</strong></td><td>2 vCPU, 4 GB, 80 GB SSD, 4 TB</td><td class="g">$200 credit</td><td class="g">Covered</td><td class="b">₹2,015</td><td class="b">$24</td><td class="g">✓ Bangalore</td><td class="g">None</td></tr>
+          <tr><td><strong>AWS Lightsail Small</strong></td><td>2 vCPU, 2 GB, 60 GB SSD, 3 TB</td><td class="g">Free 3 mo</td><td class="g">$0</td><td class="b">₹840</td><td class="b">$10</td><td class="g">✓ Mumbai</td><td class="g">None after trial</td></tr>
+          <tr><td><strong>AWS Lightsail Medium</strong></td><td>2 vCPU, 4 GB, 80 GB SSD, 4 TB</td><td class="g">Free 3 mo</td><td class="g">$0</td><td class="b">₹1,680</td><td class="b">$20</td><td class="g">✓ Mumbai</td><td class="g">None</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8 — INDIA VS FOREIGN -->
+  <div class="section" id="india-vs-foreign">
+    <div class="section-label">Section 08</div>
+    <h2>India vs. Foreign servers — what actually matters?</h2>
+    <p>This is the most common question from Indian developers. Here's the practical breakdown.</p>
+    <div class="table-wrap">
+      <table class="full-table">
+        <thead><tr><th>Factor</th><th>India Server</th><th>Foreign Server (Singapore / US)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Latency for Indian users</strong></td><td class="g">5–20 ms (Mumbai/Bangalore)</td><td class="a">40–120 ms (Singapore ~60 ms, US ~180 ms)</td></tr>
+          <tr><td><strong>Postgres query speed</strong></td><td class="g">Faster — lower network round-trip</td><td class="a">Slightly slower for synchronous queries</td></tr>
+          <tr><td><strong>Currency risk</strong></td><td class="g">Fixed INR — no forex exposure</td><td class="a">USD-priced — bill fluctuates with ₹/$ rate</td></tr>
+          <tr><td><strong>Data residency</strong></td><td class="g">Required for Indian PII / financial data</td><td class="r">Non-compliant for certain regulated data</td></tr>
+          <tr><td><strong>GST billing</strong></td><td class="g">GST invoices, Indian billing support</td><td class="a">GST (18%) applicable on foreign services for businesses</td></tr>
+          <tr><td><strong>Who it's for</strong></td><td class="g">Indian user base, compliance needs, INR budget</td><td class="b">Global apps, USD-comfortable teams</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">📍</span>
+      <div class="callout-body">
+        <div class="callout-title">Practical answer for most Indian devs</div>
+        <div class="callout-text">If your users are in India → use India servers (Hostinger India, DO Bangalore, AWS Mumbai, Oracle Mumbai). Building globally or just testing → Singapore from Vultr or DO is fine. The latency difference matters far less than your query optimisation does.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 9 — SETUP -->
+  <div class="section" id="postgres-setup">
+    <div class="section-label">Section 09</div>
+    <h2>How to run PostgreSQL on your VM</h2>
+    <p>Once you've picked a provider and spun up an Ubuntu 22.04 VM, here's the flow to get Postgres running. This works on any provider.</p>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content"><h4>SSH into your VM</h4><p>Use the IP address and SSH key from your provider dashboard. Open your terminal and connect securely.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content"><h4>Update packages and install PostgreSQL 16</h4><p>Always run a package update first, then install the official PostgreSQL 16 package from the APT repository.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content"><h4>Secure PostgreSQL</h4><p>Set a strong password for the postgres user. Configure <code>pg_hba.conf</code> to restrict access. Bind Postgres to localhost — connect from your app via SSH tunnel.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content"><h4>Set up automated backups</h4><p>Use <code>pg_dump</code> via a cron job, or your provider's snapshot feature. This is the step most beginners skip and regret.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content"><h4>Tune for your RAM</h4><p>Edit <code>/etc/postgresql/16/main/postgresql.conf</code>. Set <code>shared_buffers</code>, <code>work_mem</code>, and <code>effective_cache_size</code> based on your server's available RAM.</p></div>
+      </div>
+    </div>
+    <div class="code-block"><span class="cm"># 1. SSH into your server</span>
+ssh ubuntu@YOUR_SERVER_IP
+
+<span class="cm"># 2. Update and install PostgreSQL 16</span>
+<span class="cmd">sudo apt update && sudo apt upgrade -y</span>
+<span class="cmd">sudo apt install -y postgresql-16 postgresql-contrib-16</span>
+<span class="cmd">sudo systemctl status postgresql</span>
+
+<span class="cm"># 3. Set postgres password and create your app database</span>
+<span class="cmd">sudo -u postgres psql</span>
+<span class="kw">ALTER USER</span> postgres <span class="kw">PASSWORD</span> <span class="str">'your_strong_password_here'</span>;
+<span class="kw">CREATE DATABASE</span> myapp_db;
+<span class="kw">CREATE USER</span> myapp_user <span class="kw">WITH PASSWORD</span> <span class="str">'another_strong_password'</span>;
+<span class="kw">GRANT ALL PRIVILEGES ON DATABASE</span> myapp_db <span class="kw">TO</span> myapp_user;
+\q
+
+<span class="cm"># 4. Tuning for a 4 GB RAM server — edit postgresql.conf</span>
+shared_buffers       = 1GB    <span class="cm"># 25% of RAM</span>
+effective_cache_size = 3GB    <span class="cm"># 75% of RAM</span>
+work_mem             = 16MB   <span class="cm"># per query sort operation</span>
+maintenance_work_mem = 256MB  <span class="cm"># for VACUUM, index builds</span>
+
+<span class="cm"># 5. Daily automated backup via cron</span>
+<span class="cmd">crontab -e</span>
+0 2 * * * pg_dump -U postgres myapp_db | gzip > /backups/db-<span class="str">$(date +\%F)</span>.sql.gz</div>
+    <div class="callout callout-note">
+      <span class="callout-icon">🐳</span>
+      <div class="callout-body">
+        <div class="callout-title">Optional — run Postgres in Docker</div>
+        <div class="callout-text">Many teams containerise Postgres with Docker Compose. This makes version upgrades and data management cleaner. Always use a named volume (<code>pgdata</code>) so your data survives container restarts. Set resource limits in your <code>docker-compose.yml</code>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 10 — REALITY CHECK -->
+  <div class="section" id="reality-check">
+    <div class="section-label">Section 10</div>
+    <h2>The pricing reality check</h2>
+    <div class="reality-box">
+      <h3>The #1 mistake developers make with VM pricing</h3>
+      <p>You see ₹373/month on Hostinger. You buy it for 24 months upfront. Two years later the plan renews at ₹599/month — a 60% increase. If you weren't expecting this, it breaks your budget.</p>
+      <p>Similarly, DigitalOcean gives you $200 free credits for 60 days. After day 60, billing starts at full rate. If you scaled to a $24/month Droplet and forgot, you now owe $24/month.</p>
+      <p><strong>The rule:</strong> Always calculate and plan for the renewal or post-credit price — not the promotional rate. Your long-term infrastructure cost is what actually matters.</p>
+    </div>
+    <h3>Real cost over 12 months</h3>
+    <div class="table-wrap">
+      <table class="full-table">
+        <thead><tr><th>Scenario</th><th>Provider + Plan</th><th>Month 1–3</th><th>Month 4–12</th><th>12-month total</th></tr></thead>
+        <tbody>
+          <tr><td>Zero budget MVP</td><td>Oracle Always Free</td><td class="g">₹0</td><td class="g">₹0</td><td class="g">₹0</td></tr>
+          <tr><td>Starter Indian app</td><td>Hostinger KVM 1 (24 mo)</td><td class="b">₹373/mo</td><td class="b">₹373/mo (in-plan)</td><td class="b">~₹4,476 upfront</td></tr>
+          <tr><td>Starter + AWS trial</td><td>AWS Lightsail $5 plan</td><td class="g">₹0 (3 mo free)</td><td class="b">₹420/mo × 9 mo</td><td class="b">~₹3,780 total</td></tr>
+          <tr><td>Dev on DO credit</td><td>DigitalOcean $12 Basic</td><td class="g">₹0 (2 mo credit)</td><td class="b">₹1,010/mo × 10 mo</td><td class="b">~₹10,100 total</td></tr>
+          <tr><td>Flat USD billing</td><td>Vultr $12/mo</td><td class="b">₹1,030/mo</td><td class="b">₹1,030/mo</td><td class="b">~₹12,360 total</td></tr>
+          <tr><td>Production app</td><td>DO General Purpose $63</td><td class="g">Credit covers it</td><td class="a">₹5,290/mo × 10 mo</td><td class="a">~₹52,900 total</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 11 — RECOMMENDATION -->
+  <div class="section" id="recommendation">
+    <div class="section-label">Section 11</div>
+    <h2>Which one should you actually pick?</h2>
+    <div class="table-wrap">
+      <table class="full-table">
+        <thead><tr><th>Your situation</th><th>Recommended option</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Learning Postgres / student project</td><td class="g"><strong>Oracle Always Free</strong></td><td>4 vCPU, 24 GB RAM, zero cost. Best lab you'll find.</td></tr>
+          <tr><td>MVP / early startup, Indian users</td><td class="g"><strong>AWS Lightsail $10 (Mumbai)</strong></td><td>3 months free, India region, AWS reliability, flat pricing.</td></tr>
+          <tr><td>Budget Indian app, INR billing</td><td class="b"><strong>Hostinger KVM 2 (India DC)</strong></td><td>2 vCPU, 8 GB RAM, INR pricing, India server. Lock in 24-mo rate.</td></tr>
+          <tr><td>Want simple flat USD billing</td><td class="b"><strong>Vultr $12 or $24</strong></td><td>No promos, no renewal surprises. Pay what you see.</td></tr>
+          <tr><td>Small startup, planning to grow</td><td class="b"><strong>DigitalOcean Basic $24 (Bangalore)</strong></td><td>Excellent docs, India DC, easy vertical scaling, $200 head start.</td></tr>
+          <tr><td>Production app with real revenue</td><td class="a"><strong>DO CPU-Optimized or AWS Lightsail Large</strong></td><td>Dedicated CPU, NVMe, India region. Worth paying for reliability.</td></tr>
+          <tr><td>Cost-conscious production</td><td class="a"><strong>Oracle OCI Paid ARM</strong></td><td>Outstanding specs per rupee. ARM is fully production-ready in 2025.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-good">
+      <span class="callout-icon">✓</span>
+      <div class="callout-body">
+        <div class="callout-title">The CraftMVP recommendation for Indian startups</div>
+        <div class="callout-text">Start on <strong>Oracle Always Free</strong> (₹0) → validate your MVP → when you have users and revenue, migrate to <strong>DigitalOcean Basic $24/Bangalore</strong> or <strong>AWS Lightsail Medium/Mumbai</strong>. Use the $200 DO credit or 3-month AWS trial as your bridge during migration. Never pay for a database server before you have real users.</div>
+      </div>
+    </div>
+    <h3>Quick checklist before going live</h3>
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content"><h4>Secure your server</h4><p>Disable root SSH login, configure UFW firewall, block port 5432 from public access. Only your app server should reach Postgres.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content"><h4>Set up automated backups</h4><p>Daily <code>pg_dump</code> to Backblaze B2 ($0.006/GB/mo — cheapest option). Never rely on provider snapshots alone.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content"><h4>Set up monitoring</h4><p>Use free Netdata or Prometheus + Grafana. Set a disk alert at 70% full — databases grow quietly and quickly.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content"><h4>Add connection pooling</h4><p>Install PgBouncer between your app and Postgres. Prevents "too many connections" errors and improves performance significantly under load.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content"><h4>Know your scaling trigger</h4><p>Generally: over 1,000 DAU → upgrade RAM. Over 10,000 DAU → dedicated CPU + read replica. Plan ahead, don't scramble under pressure.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="section" style="border-bottom: none; padding-bottom: 64px;">
+    <div class="cta-block">
+      <h3>Building an MVP or product?</h3>
+      <p>CraftMVP helps startups and founders build and ship their first product — fast, affordable, and production-ready.</p>
+      <a href="https://craftmvp.in" class="cta-btn">Visit CraftMVP →</a>
+      <a href="https://craftmvp.in/blogs" class="cta-sec">Read more guides</a>
+    </div>
+  </div>
+
+</div><!-- /.wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Written by <strong>CraftMVP</strong> · <a href="https://craftmvp.in/blogs">craftmvp.in/blogs</a><br/>
+    Prices verified March 2025 · USD/INR rate: ₹84 = $1 · Prices subject to change — verify on provider websites before purchasing.
+  </p>
+</footer>
+
+</body>
+</html>
